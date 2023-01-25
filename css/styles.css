@@ -11,6 +11,7 @@ body {
 
 .topo {
     background: #ec362d;
+    height: 69px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     position: fixed;
     top: 0px;
@@ -24,7 +25,6 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     width: 100%;
     min-height: 100vh;
 }
@@ -44,7 +44,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    margin-top: 77px;
 }
 
 .NaoCriou {
@@ -68,4 +68,11 @@ body {
     line-height: 25px;
     text-align: center;
     color: #ec362d;
+}
+main{
+    margin-top: 69px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
