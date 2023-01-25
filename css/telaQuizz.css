@@ -1,0 +1,96 @@
+.tela-quizz {
+    width: 100%;
+    background-color: #fafafa;
+    display: flex;
+    flex-direction: column;
+    gap: 42px;
+}
+
+/* Título */
+.tela-quizz .titulo-container {
+    margin-top: 69px;
+    position: relative;
+    height: 228px;
+    overflow: hidden;
+}
+
+.tela-quizz .titulo-container h2 {
+    font-weight: 400;
+    font-size: 39px;
+    line-height: 46px;
+    color: #fff;
+    position: absolute;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tela-quizz .titulo-container img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.tela-quizz .titulo-container .overlay {
+    position: absolute;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.57), rgba(0, 0, 0, 0.57));
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+}
+/* FIM Título */
+
+/* Perguntas */
+.tela-quizz .pergunta:last-of-type {
+    margin-bottom: 42px;
+}
+
+.tela-quizz .pergunta {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    padding: 28px 36px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+    max-width: 760px;
+    margin: 0 auto;
+}
+
+.tela-quizz .pergunta h3 {
+    background-color: #434ca0;
+    height: 138px;
+    font-weight: 700;
+    font-size: 23px;
+    line-height: 27px;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 16px;
+}
+
+.tela-quizz .pergunta img {
+    width: 100%;
+    object-fit: cover;
+}
+
+.tela-quizz .pergunta .alternativas {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.tela-quizz .pergunta .alternativa p {
+    color: #000;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 23px;
+    margin-top: 10px;
+}
+/* END Perguntas */
