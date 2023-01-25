@@ -10,22 +10,28 @@
 .tela-quizz .titulo-container {
     margin-top: 69px;
     position: relative;
-    height: 228px;
+    min-height: 228px;
     overflow: hidden;
+    width: 100%;
 }
 
 .tela-quizz .titulo-container h2 {
+    position: absolute;
+    z-index: 2;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 90%;
     font-weight: 400;
     font-size: 39px;
     line-height: 46px;
     color: #fff;
-    position: absolute;
-    z-index: 2;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    /* Ellipsis na 4ª linha */
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .tela-quizz .titulo-container img {
@@ -60,19 +66,25 @@
     margin: 0 auto;
 }
 
-.tela-quizz .pergunta h3 {
+.tela-quizz .pergunta .pergunta-titulo {
     background-color: #434ca0;
     height: 138px;
+    margin-bottom: 20px;
+    padding: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tela-quizz .pergunta h3 {
     font-weight: 700;
     font-size: 23px;
     line-height: 27px;
     color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    margin-bottom: 20px;
-    padding: 16px;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .tela-quizz .pergunta img {
@@ -92,5 +104,20 @@
     font-size: 20px;
     line-height: 23px;
     margin-top: 10px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+}
+
+.tela-quizz .pergunta.respondida .alternativa.correta p {
+    color: #009c22;
+}
+.tela-quizz .pergunta.respondida .alternativa.errada p {
+    color: #ff4b4b;
+}
+
+.tela-quizz .pergunta.respondida .alternativa:not(.marcada) {
+    opacity: 0.3;
 }
 /* END Perguntas */
