@@ -1,4 +1,4 @@
-.tela-quizz {
+.tela.quizz {
     width: 100%;
     background-color: #fafafa;
     display: flex;
@@ -7,7 +7,7 @@
 }
 
 /* Título */
-.tela-quizz .titulo-container {
+.tela.quizz .titulo-container {
     margin-top: 69px;
     position: relative;
     min-height: 228px;
@@ -15,7 +15,7 @@
     width: 100%;
 }
 
-.tela-quizz .titulo-container h2 {
+.tela.quizz .titulo-container h2 {
     position: absolute;
     z-index: 2;
     top: 50%;
@@ -34,14 +34,14 @@
     overflow: hidden;
 }
 
-.tela-quizz .titulo-container img {
+.tela.quizz .titulo-container img {
     position: absolute;
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-.tela-quizz .titulo-container .overlay {
+.tela.quizz .titulo-container .overlay {
     position: absolute;
     background: linear-gradient(0deg, rgba(0, 0, 0, 0.57), rgba(0, 0, 0, 0.57));
     z-index: 1;
@@ -51,11 +51,11 @@
 /* FIM Título */
 
 /* Perguntas */
-.tela-quizz .pergunta:last-of-type {
+.tela.quizz .pergunta:last-of-type {
     margin-bottom: 42px;
 }
 
-.tela-quizz .pergunta {
+.tela.quizz .pergunta {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -66,7 +66,7 @@
     margin: 0 auto;
 }
 
-.tela-quizz .pergunta .pergunta-titulo {
+.tela.quizz .pergunta .pergunta-titulo {
     background-color: #434ca0;
     height: 138px;
     margin-bottom: 20px;
@@ -76,7 +76,7 @@
     align-items: center;
 }
 
-.tela-quizz .pergunta h3 {
+.tela.quizz .pergunta h3 {
     font-weight: 700;
     font-size: 23px;
     line-height: 27px;
@@ -88,31 +88,31 @@
     overflow: hidden;
 }
 
-.tela-quizz .pergunta img {
+.tela.quizz .pergunta img {
     width: 100%;
     object-fit: cover;
 }
 
-.tela-quizz .pergunta .alternativas {
+.tela.quizz .pergunta .alternativas {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
 }
 
-.tela-quizz .pergunta .alternativa {
+.tela.quizz .pergunta .alternativa {
     overflow: hidden;
     cursor: pointer;
     transition: filter ease 0.3s, opacity ease 0.3s;
 }
 
-.tela-quizz .pergunta:not(.respondida) .alternativa:hover {
+.tela.quizz .pergunta:not(.respondida) .alternativa:hover {
     filter: brightness(1.4);
 }
-.tela-quizz .pergunta:not(.respondida) .alternativa:active {
+.tela.quizz .pergunta:not(.respondida) .alternativa:active {
     filter: brightness(1);
 }
 
-.tela-quizz .pergunta .alternativa p {
+.tela.quizz .pergunta .alternativa p {
     color: #000;
     font-weight: 700;
     font-size: 20px;
@@ -125,14 +125,14 @@
     transition: color ease 0.3s;
 }
 
-.tela-quizz .pergunta.respondida .alternativa.correta p {
+.tela.quizz .pergunta.respondida .alternativa.correta p {
     color: #009c22;
 }
-.tela-quizz .pergunta.respondida .alternativa.errada p {
+.tela.quizz .pergunta.respondida .alternativa.errada p {
     color: #ff4b4b;
 }
 
-.tela-quizz .pergunta.respondida .alternativa:not(.marcada) {
+.tela.quizz .pergunta.respondida .alternativa:not(.marcada) {
     opacity: 0.3;
 }
 /* END Perguntas */
