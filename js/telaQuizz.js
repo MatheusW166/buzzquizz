@@ -5,6 +5,13 @@ const STATES = {
   errada: "errada",
 };
 
+function scrollarProximaPergunta(element) {
+  const limiteSuperiorScroll =
+    element.getBoundingClientRect().top + window.pageYOffset - 250;
+  window.scrollTo({ top: limiteSuperiorScroll, behavior: "smooth" });
+}
+
+const DELAY_SCROLL = 2 * 1000; // 2 segundos
 window.marcarResposta = (alternativa) => {
   const containerDaPergunta = alternativa.parentElement.parentElement;
   if (containerDaPergunta.classList.contains(STATES.respondida)) {
@@ -12,6 +19,11 @@ window.marcarResposta = (alternativa) => {
   }
   alternativa.classList.add(STATES.marcada);
   containerDaPergunta.classList.add(STATES.respondida);
+  const proximaPergunta = containerDaPergunta.nextElementSibling;
+  if (!proximaPergunta) {
+    return;
+  }
+  setTimeout(() => scrollarProximaPergunta(proximaPergunta), DELAY_SCROLL);
 };
 
 function criarLayoutAlternativa(alternativa) {
@@ -21,7 +33,7 @@ function criarLayoutAlternativa(alternativa) {
   }">
     <img
       src="${alternativa.image}"
-      alt="${alternativa.image}"
+      alt="imagem não encontrada :("
     />
     <p>${alternativa.text}</p>
   </div>
@@ -54,7 +66,7 @@ function criarTitulo(quizz) {
   <div class="titulo-container">
     <h2>${quizz.title}</h2>
     <div class="overlay"></div>
-    <img src="${quizz.image}" alt="${quizz.image}" />
+    <img src="${quizz.image}" alt="imagem não encontrada :(" />
   </div>
   `;
 }
