@@ -73,12 +73,12 @@ export {};
 window.criarTeste = function(){
     const criar = document.querySelector('.criarQuiz');
     criar.classList.add('remocaoDisplay');
-    let quizesLocais = document.querySelector(".QuizesUsuario");
-    quizesLocais.classList.remove("sumir");
-    quizesLocais = document.querySelector(".listaQuizzesLocais");
-    quizesLocais.classList.remove("sumir");
     const aparecerPagina1 = document.querySelector('.pagina1');
     aparecerPagina1.classList.remove('remocaoDisplay');
+    let quizesLocais = document.querySelector(".todosOsQuizzes");
+    quizesLocais.classList.add("sumir");
+    quizesLocais = document.querySelector(".listaQuizzes");
+    quizesLocais.classList.add("sumir");
 }
 
 window.criarComeco = function(){
@@ -135,4 +135,8 @@ window.finalizar = function(){
     criar.classList.add('remocaoDisplay');
     const aparecerPagina4 = document.querySelector('.pagina4');
     aparecerPagina4.classList.remove('remocaoDisplay');
+    let quizesLocais = document.querySelector(".QuizesUsuario");
+    quizesLocais.classList.remove("sumir");
+    quizesLocais = document.querySelector(".listaQuizzesLocais");
+    quizesLocais.classList.remove("sumir");
 }
