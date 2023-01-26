@@ -80,7 +80,7 @@ main {
     max-width: 1051px;
 }
 .todosOsQuizzes {
-    margin-top: 35px;
+    margin-top: 77px;
     font-style: normal;
     font-weight: 700;
     font-size: 20px;
@@ -92,6 +92,30 @@ main {
 }
 
 .listaQuizzes {
+    margin-top: 14px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+}
+.QuizesUsuario{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-top: 69px;
+}
+.SeusQuizes{
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 23px;
+    margin-right: 17px;
+}
+.add{
+    color: #EC362D;
+    font-size: 36px;
+}
+.listaQuizzesLocais{
     margin-top: 14px;
     width: 100%;
     display: flex;
@@ -133,7 +157,12 @@ main {
     z-index: 1;
     border-radius: 5px;
 }
-
+.sumir{
+    display: none;
+}
+.aparecer{
+    display: inline;
+}
 /* Ajustes UX */
 .clicavel {
     cursor: pointer;
@@ -149,10 +178,12 @@ main {
 @media screen and (max-width: 1100px) {
     .listaQuizzes,
     .criarQuiz,
-    .todosOsQuizzes {
+    .todosOsQuizzes,
+    .listaQuizzesLocais {
         width: 90%;
     }
-    .listaQuizzes {
+    .listaQuizzes,
+    .listaQuizzesLocais {
         flex-direction: column;
         justify-content: center;
         align-items: center;
