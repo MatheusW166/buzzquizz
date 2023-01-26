@@ -414,6 +414,10 @@ height: 256px;
 background: #FFFFFF;
 box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
 }
+.pagina1, .pagina2, .pagina3{
+    width:100vw;
+    height:100vh;
+}
 .alinhamento {
 width:100%;
 display:flex;
