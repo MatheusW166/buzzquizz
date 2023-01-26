@@ -156,6 +156,7 @@ function criarTelaQuizz(quizz) {
   const telaQuizz = document.querySelector(".tela.quizz");
   telaQuizz.innerHTML = titulo + perguntas + resultado;
   telaQuizz.style.display = "flex";
+  window.scrollTo({ top: 0 });
 }
 
 export { criarTelaQuizz };
