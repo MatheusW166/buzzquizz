@@ -114,6 +114,7 @@ main {
 .add{
     color: #EC362D;
     font-size: 36px;
+    cursor: pointer;
 }
 .listaQuizzesLocais{
     margin-top: 14px;
