@@ -1,3 +1,5 @@
+let ULTIMA_POSICAO_SCROLL = 0;
+
 const STATES = {
   respondida: "respondida",
   marcada: "marcada",
@@ -10,6 +12,7 @@ const STATUS_JOGADOR = {
   acertos: 0,
   quizzAtual: null,
 };
+
 const DELAY_SCROLL = 2 * 1000;
 
 function tagImgCustomizada({
@@ -35,18 +38,48 @@ function resetarStatusJogador(quizz) {
   STATUS_JOGADOR.quizzAtual = quizz;
 }
 
+function scrollTop(behavior) {
+  window.scrollTo({ top: 0, behavior: behavior });
+}
+
+function scrollPraUltimaPosicao() {
+  window.scrollTo({ top: ULTIMA_POSICAO_SCROLL });
+}
+
+function resetarRespostas(perguntas) {
+  perguntas.forEach((pergunta) => {
+    pergunta.classList.remove(STATES.respondida);
+    const alternativas = pergunta.querySelectorAll(".alternativa");
+    alternativas.forEach((alternativa) => {
+      alternativa.classList.remove(STATES.marcada);
+    });
+  });
+}
+
+function removerResultadoeNavegacaoComDelay() {
+  setTimeout(() => {
+    document.querySelector(".resultado").style.display = "none";
+    document.querySelector(".navegacao-quizz").style.display = "none";
+  }, 600);
+}
+
 window.voltarDoQuizzParaHome = function () {
   document.querySelector(".tela.quizz").style.display = "none";
   document.querySelector(".tela.home").style.display = "flex";
-  scrollTop();
+  scrollPraUltimaPosicao();
 };
+
 window.reiniciarQuizz = function () {
-  console.log("Reiniciando!");
+  const containersPerguntas = document.querySelectorAll(".pergunta");
+  resetarRespostas(containersPerguntas);
+  resetarStatusJogador(STATUS_JOGADOR.quizzAtual);
+  scrollTop("smooth");
+  removerResultadoeNavegacaoComDelay();
 };
 
 function criarLayoutNavegacaoQuizz() {
   return `
-  <div class="navegacao-quizz">
+  <div style="display:none" class="navegacao-quizz">
     <button onclick="reiniciarQuizz()" class="reiniciar-btn">Reiniciar Quizz</button>
     <button onclick="voltarDoQuizzParaHome()" class="home-btn">Voltar pra home</button>
   </div>
@@ -65,6 +98,10 @@ function criarLayoutResultado() {
   `;
 }
 
+function mostrarNavegacao() {
+  document.querySelector(".navegacao-quizz").style.display = "flex";
+}
+
 function mostrarResultado(nivel, percentual) {
   const elementoResultado = document.querySelector(".tela.quizz .resultado");
   const h3 = elementoResultado.querySelector("h3");
@@ -76,10 +113,6 @@ function mostrarResultado(nivel, percentual) {
   p.innerHTML = text;
   elementoResultado.style.display = "flex";
   return elementoResultado;
-}
-
-function scrollTop() {
-  window.scrollTo({ top: 0 });
 }
 
 function scrollarApos2segundos(element) {
@@ -120,6 +153,7 @@ function resultadoOuProximaPergunta(containerDaPergunta) {
     return containerDaPergunta.nextElementSibling;
   }
   const percentual = Math.round((acertos / respondidas) * 100);
+  mostrarNavegacao();
   return mostrarResultado(
     nivelDoPercentualAcertado(quizzAtual, percentual),
     percentual
@@ -198,7 +232,12 @@ function criarLayoutDaPagina(quizz) {
   return Object.values(layout).reduce((prev, curr) => prev + curr, "");
 }
 
+function salvarUltimaPosicaoDoScroll() {
+  ULTIMA_POSICAO_SCROLL = window.scrollY;
+}
+
 function criarTelaQuizz(quizz) {
+  salvarUltimaPosicaoDoScroll();
   resetarStatusJogador(quizz); // Resetando dados do jogo anterior
   const layoutPagina = criarLayoutDaPagina(quizz);
   const telaQuizz = document.querySelector(".tela.quizz");
