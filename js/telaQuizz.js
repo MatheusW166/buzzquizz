@@ -5,25 +5,99 @@ const STATES = {
   errada: "errada",
 };
 
-function scrollarProximaPergunta(element) {
-  const limiteSuperiorScroll =
-    element.getBoundingClientRect().top + window.pageYOffset - 250;
-  window.scrollTo({ top: limiteSuperiorScroll, behavior: "smooth" });
+const STATUS_JOGADOR = {
+  respondidas: 0,
+  acertos: 0,
+  quizzAtual: null,
+};
+const DELAY_SCROLL = 2 * 1000;
+
+function resetarStatusJogador(quizz) {
+  STATUS_JOGADOR.respondidas = 0;
+  STATUS_JOGADOR.acertos = 0;
+  STATUS_JOGADOR.quizzAtual = quizz;
 }
 
-const DELAY_SCROLL = 2 * 1000; // 2 segundos
-window.marcarResposta = (alternativa) => {
-  const containerDaPergunta = alternativa.parentElement.parentElement;
-  if (containerDaPergunta.classList.contains(STATES.respondida)) {
+function criarLayoutResultado() {
+  return `
+  <article style="display:none" class="resultado">
+    <div class="resultado-titulo">
+      <h3></h3>
+    </div>
+    <img src="" alt="Imagem não encontrada :(" />
+    <p></p>
+  </article>
+  `;
+}
+
+function mostrarResultado(nivel, percentual) {
+  const elementoResultado = document.querySelector(".tela.quizz .resultado");
+  const h3 = elementoResultado.querySelector("h3");
+  const img = elementoResultado.querySelector("img");
+  const p = elementoResultado.querySelector("p");
+  const { title, text, image } = nivel;
+  h3.innerHTML = `${percentual}% de acerto: ${title}`;
+  img.src = image;
+  p.innerHTML = text;
+  elementoResultado.style.display = "flex";
+  return elementoResultado;
+}
+
+function scrollarApos2segundos(element) {
+  if (!element) {
     return;
   }
+  setTimeout(() => {
+    const limiteSuperiorScroll =
+      element.getBoundingClientRect().top + window.pageYOffset - 250;
+    window.scrollTo({ top: limiteSuperiorScroll, behavior: "smooth" });
+  }, DELAY_SCROLL);
+}
+
+function perguntaRespondida(pergunta) {
+  return pergunta.classList.contains(STATES.respondida);
+}
+
+function alternativaCerta(alternativa) {
+  return alternativa.classList.contains(STATES.correta);
+}
+
+function adicionarClasseDePerguntaRespondida(alternativa, containerDaPergunta) {
   alternativa.classList.add(STATES.marcada);
   containerDaPergunta.classList.add(STATES.respondida);
-  const proximaPergunta = containerDaPergunta.nextElementSibling;
-  if (!proximaPergunta) {
+}
+
+function quizzTerminou(quizz) {
+  return quizz.questions.length === STATUS_JOGADOR.respondidas;
+}
+
+function nivelDoPercentualAcertado(quizz, percentual) {
+  return quizz.levels.filter((level) => percentual >= level.minValue).at(-1);
+}
+
+function resultadoOuProximaPergunta(containerDaPergunta) {
+  const { respondidas, acertos, quizzAtual } = STATUS_JOGADOR;
+  if (!quizzTerminou(quizzAtual)) {
+    return containerDaPergunta.nextElementSibling;
+  }
+  const percentual = Math.round((acertos / respondidas) * 100);
+  return mostrarResultado(
+    nivelDoPercentualAcertado(quizzAtual, percentual),
+    percentual
+  );
+}
+
+window.marcarResposta = (alternativa) => {
+  const containerDaPergunta = alternativa.parentElement.parentElement;
+  if (perguntaRespondida(containerDaPergunta)) {
     return;
   }
-  setTimeout(() => scrollarProximaPergunta(proximaPergunta), DELAY_SCROLL);
+  STATUS_JOGADOR.respondidas++;
+  if (alternativaCerta(alternativa)) {
+    STATUS_JOGADOR.acertos++;
+  }
+  adicionarClasseDePerguntaRespondida(alternativa, containerDaPergunta);
+  scrollarApos2segundos(resultadoOuProximaPergunta(containerDaPergunta));
 };
 
 function criarLayoutAlternativa(alternativa) {
@@ -35,7 +109,7 @@ function criarLayoutAlternativa(alternativa) {
       src="${alternativa.image}"
       alt="imagem não encontrada :("
     />
-    <p>${alternativa.text}</p>
+     <p>${alternativa.text}</p>
   </div>
   `;
 }
@@ -72,13 +146,15 @@ function criarTitulo(quizz) {
 }
 
 function criarTelaQuizz(quizz) {
+  resetarStatusJogador(quizz);
   const titulo = criarTitulo(quizz);
   const perguntas = quizz.questions.reduce(
     (prev, curr) => prev + criarLayoutDaPergunta(curr),
     ""
   );
+  const resultado = criarLayoutResultado();
   const telaQuizz = document.querySelector(".tela.quizz");
-  telaQuizz.innerHTML = titulo + perguntas;
+  telaQuizz.innerHTML = titulo + perguntas + resultado;
   telaQuizz.style.display = "flex";
 }
 
