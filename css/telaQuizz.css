@@ -102,13 +102,13 @@
 .tela-quizz .pergunta .alternativa {
     overflow: hidden;
     cursor: pointer;
-    transition: filter ease 0.3s;
+    transition: filter ease 0.3s, opacity ease 0.3s;
 }
 
-.tela-quizz .pergunta .alternativa:hover {
+.tela-quizz .pergunta:not(.respondida) .alternativa:hover {
     filter: brightness(1.4);
 }
-.tela-quizz .pergunta .alternativa:active {
+.tela-quizz .pergunta:not(.respondida) .alternativa:active {
     filter: brightness(1);
 }
 
@@ -122,6 +122,7 @@
     display: -webkit-box;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
+    transition: color ease 0.3s;
 }
 
 .tela-quizz .pergunta.respondida .alternativa.correta p {
