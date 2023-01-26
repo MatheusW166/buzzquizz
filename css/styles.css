@@ -89,7 +89,6 @@ main {
     width: 100%;
     justify-content: left;
     color: #000000;
-
 }
 
 .listaQuizzes {
@@ -103,12 +102,14 @@ main {
     position: relative;
     width: 340px;
     height: 181px;
-}
-.imgQuizz {
-    width: 340px;
-    height: 181px;
-    z-index: -1;
+    overflow: hidden;
     border-radius: 5px;
+}
+
+.imgQuizz {
+    width: 100%;
+    z-index: -1;
+    object-fit: cover;
 }
 .tituloQuizz {
     font-style: normal;
