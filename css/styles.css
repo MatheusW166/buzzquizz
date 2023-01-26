@@ -191,3 +191,237 @@ main {
 }
 @media screen and (max-width: 1100px) {
 }
+
+.pagina1, .pagina2, .pagina3{
+    width:100%;
+    display:flex;
+    flex-direction: column;
+    height:100vh;
+    background: #E5E5E5;
+}
+
+.comece{
+background-color: #E5E5E5;
+width:100%;
+text-align:center;
+box-sizing: border-box;
+padding-top:37px;
+padding-bottom:37px;
+}
+
+.comeco{
+font-family: 'Roboto';
+font-style: normal;
+font-weight: 700;
+font-size: 20px;
+line-height: 23px;
+color: #000000;
+width:100%;
+}
+
+.inputs{
+display:flex;
+flex-direction: column;
+width:100%;
+align-items: center;
+gap:10px;
+background: #FFFFFF;
+box-sizing: border-box;
+padding:24px;
+}
+
+.titulo, .url, .perguntas, .niveis, .texto, .cor, .resposta, .imagem, .incorreta1, .incorreta2, .incorreta3, .imagemIncorreta1, .imagemIncorreta2, .imagemIncorreta3, .URLnivel, .percentual, .tituloNivel{
+background: #FFFFFF;
+border: 1px solid #D1D1D1;
+border-radius: 5px;
+width: 341px;
+height: 46px;
+}
+
+.descricao{
+width: 341px;
+height: 177px;
+background: #FFFFFF;
+border: 1px solid #D1D1D1;
+border-radius: 5px;
+margin-bottom: 20px;
+}
+
+.incorreta2, .incorreta3 {
+    margin-top:32px;
+}
+
+.imagemIncorreta3 {
+    margin-bottom: 27px;
+}
+
+::placeholder{
+font-family: 'Roboto';
+font-style: italic;
+font-weight: 400;
+font-size: 19px;
+line-height: 22px;
+color: #BABABA;
+}
+
+.alinhamentoItens{
+width:100%;
+display:flex;
+align-items: center;
+justify-content: center;
+margin-top: 52px;
+}
+
+.prosseguirNiveis, .prosseguir, .finalizar {
+width: 324px;
+height: 54px;
+background: #EC362D;
+border-radius: 15px;
+font-family: 'Roboto';
+font-style: normal;
+font-weight: 400;
+font-size: 18px;
+line-height: 21px;
+text-align: center;
+color: #FFF5F4;
+display:flex;
+align-items: center;
+justify-content: center;
+margin-bottom: 136px;
+}
+
+.container2, .container3, .container4, .container5, .container6, .container7{
+    display:flex;
+    flex-direction: column;
+    width:100%;
+    align-items:center;
+    justify-content:center;
+    background-color:#FFFFFF;
+    margin-bottom:24px;
+}
+
+.pergunta1{  
+background: #FFFFFF;
+box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+display:flex;
+flex-direction: column;
+width:341px;
+}
+
+.digitePergunta{
+font-family: 'Roboto';
+font-style: normal;
+font-weight: 700;
+font-size: 20px;
+line-height: 23px;
+color: #000000;
+margin-bottom: 12px;
+margin-top: 27px;
+}
+
+.inputs2 {
+gap:10px;
+background: #FFFFFF;
+display:flex;
+flex-direction: column;
+}
+
+.pergunta1Inicio, .pergunta2Inicio, .pergunta3Inicio, .nivel1Inicio, .nivel2Inicio, .nivel3Inicio{
+    display:flex;
+    width:100%;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    padding-right:17px;
+    padding-left: 17px;
+    padding-top: 27px;
+    padding-bottom: 24px;
+    margin-bottom:24px;
+}
+
+.pergunta1Inicio ion-icon{
+    font-size:24px;
+}
+
+.pergunta2Inicio ion-icon{
+    font-size:24px;
+}
+
+.pergunta3Inicio ion-icon{
+    font-size:24px;
+}
+
+.nivel1Inicio ion-icon{
+    font-size:24px;
+}
+
+.nivel2Inicio ion-icon{
+    font-size:24px;
+}
+
+.nivel3Inicio ion-icon{
+    font-size:24px;
+}
+
+.pergunta3Inicio, .container4 {
+    margin-bottom:46px;
+}
+
+.digitePergunta1{
+font-family: 'Roboto';
+font-style: normal;
+font-weight: 700;
+font-size: 20px;
+line-height: 23px;
+display: flex;
+align-items: center;
+color: #000000;
+}
+
+.prosseguirNiveis{
+width: 324px;
+height: 54px;
+left: 30px;
+top: 1224px;
+background: #EC362D;
+border-radius: 15px;
+font-family: 'Roboto';
+font-style: normal;
+font-weight: 400;
+font-size: 18px;
+line-height: 21px;
+text-align: center;
+color: #FFF5F4;
+}
+
+.botaoProsseguir, .botaoFinalizar{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 61px;
+    margin-bottom:136px;
+}
+
+.remocaoDisplay {
+display:none;
+}
+
+
+@media (min-width: 650px){
+.inputs {width: 600px;
+height: 256px;
+background: #FFFFFF;
+box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+}
+.alinhamento {
+width:100%;
+display:flex;
+justify-content: center;
+}
+.titulo, .url, .perguntas, .niveis{
+width: 564px;
+height: 46px;
+}
+}
