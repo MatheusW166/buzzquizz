@@ -49,7 +49,7 @@ function scrollarApos2segundos(element) {
   }
   setTimeout(() => {
     const limiteSuperiorScroll =
-      element.getBoundingClientRect().top + window.pageYOffset - 250;
+      element.getBoundingClientRect().top + window.pageYOffset - 150;
     window.scrollTo({ top: limiteSuperiorScroll, behavior: "smooth" });
   }, DELAY_SCROLL);
 }
