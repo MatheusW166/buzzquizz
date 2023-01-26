@@ -134,6 +134,18 @@ main {
     border-radius: 5px;
 }
 
+/* Ajustes UX */
+.clicavel {
+    cursor: pointer;
+    transition: filter ease 0.3s;
+}
+.clicavel:hover {
+    filter: brightness(1.4);
+}
+.clicavel:active {
+    filter: brightness(1);
+}
+
 @media screen and (max-width: 1100px) {
     .listaQuizzes,
     .criarQuiz,
