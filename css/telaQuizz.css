@@ -51,8 +51,7 @@
 /* FIM Título */
 
 /* Perguntas */
-.tela.quizz article:has(+ [style*="display:none"]),
-.tela.quizz article:last-of-type {
+.tela.quizz article:has(+ [style*="display:none"]) {
     margin-bottom: 42px;
 }
 
@@ -162,3 +161,45 @@
     color: #484848;
 }
 /* END Resultado */
+
+/* Navegação após quizz */
+.navegacao-quizz {
+    display: none;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    align-items: center;
+    margin-bottom: 42px;
+}
+
+.tela.quizz:has(.resultado:not([style*="display:none"])) .navegacao-quizz {
+    display: flex;
+}
+
+.navegacao-quizz button {
+    height: 52px;
+    width: min(100%, 260px);
+    border-radius: 15px;
+    font-size: 21px;
+    line-height: 25px;
+    cursor: pointer;
+    transition: filter ease 0.3s;
+}
+
+.navegacao-quizz button:hover {
+    filter: brightness(0.9);
+}
+.navegacao-quizz button:active {
+    filter: brightness(0.8);
+}
+
+.navegacao-quizz .reiniciar-btn {
+    background-color: #ec362d;
+    color: #fff5f4;
+}
+
+.navegacao-quizz .home-btn {
+    color: #818181;
+    background-color: #fafafa;
+}
+/* END Navegação após quizz */
