@@ -81,6 +81,7 @@
     font-size: 23px;
     line-height: 27px;
     color: #fff;
+    text-align: center;
     display: -webkit-box;
     -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
@@ -96,6 +97,19 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
+}
+
+.tela-quizz .pergunta .alternativa {
+    overflow: hidden;
+    cursor: pointer;
+    transition: filter ease 0.3s;
+}
+
+.tela-quizz .pergunta .alternativa:hover {
+    filter: brightness(1.4);
+}
+.tela-quizz .pergunta .alternativa:active {
+    filter: brightness(1);
 }
 
 .tela-quizz .pergunta .alternativa p {
