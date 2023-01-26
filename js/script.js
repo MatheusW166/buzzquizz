@@ -1,5 +1,5 @@
 import { getQuizzes } from "./api.js";
-import { criarTelaQuizz } from "./telaQuizz.js";
+import { criarTelaQuizz, tagImgCustomizada } from "./telaQuizz.js";
 
 let Quizzes = [];
 getQuizzes().then((res) => {
@@ -21,7 +21,11 @@ function exibirQuizzes() {
   for (let cont = 0; cont < Quizzes.length; cont++) {
     let template = `
         <li class="QuizzListado clicavel">
-            <img class="imgQuizz" src="${Quizzes[cont].image}" alt="${Quizzes[cont].title}">
+            ${tagImgCustomizada({
+              classes: "imgQuizz",
+              src: Quizzes[cont].image,
+              alt: Quizzes[cont].title,
+            })}
             <label class="tituloQuizz">${Quizzes[cont].title}</label>
         </li>`;
     listaQuizzes.innerHTML += template;
