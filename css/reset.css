@@ -127,3 +127,12 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+button {
+  outline: none;
+  border: none;
+  background: none;
+  margin: 0;
+  padding: 0;
+  color: inherit;
+  font-size: inherit;
+}
