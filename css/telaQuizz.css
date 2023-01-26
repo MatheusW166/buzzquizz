@@ -1,0 +1,197 @@
+.tela.quizz {
+    width: 100%;
+    background-color: #fafafa;
+    display: flex;
+    flex-direction: column;
+    gap: 42px;
+    margin-bottom: 42px;
+}
+
+/* Título */
+.tela.quizz .titulo-container {
+    margin-top: 69px;
+    position: relative;
+    height: 228px;
+    overflow: hidden;
+    width: 100%;
+}
+
+.tela.quizz .titulo-container h2 {
+    position: absolute;
+    z-index: 2;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 90%;
+    font-weight: 400;
+    font-size: 39px;
+    line-height: 46px;
+    color: #fff;
+    /* Ellipsis na 4ª linha */
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.tela.quizz .titulo-container img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.tela.quizz .titulo-container .overlay {
+    position: absolute;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.57), rgba(0, 0, 0, 0.57));
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+}
+/* FIM Título */
+
+/* Perguntas */
+.tela.quizz .pergunta,
+.tela.quizz .resultado {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    padding: 28px 36px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+    max-width: 760px;
+    margin: 0 auto;
+}
+
+.tela.quizz .pergunta .pergunta-titulo,
+.tela.quizz .resultado .resultado-titulo {
+    background-color: #434ca0;
+    height: 138px;
+    margin-bottom: 20px;
+    padding: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tela.quizz .pergunta h3,
+.tela.quizz .resultado h3 {
+    font-weight: 700;
+    font-size: 23px;
+    line-height: 27px;
+    color: #fff;
+    text-align: center;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.tela.quizz .pergunta img {
+    aspect-ratio: 1.8;
+    width: 100%;
+    object-fit: cover;
+}
+
+.tela.quizz .pergunta .alternativas {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.tela.quizz .pergunta .alternativa {
+    overflow: hidden;
+    transition: filter ease 0.3s, opacity ease 0.3s;
+}
+.tela.quizz .pergunta:not(.respondida) .alternativa {
+    cursor: pointer;
+}
+.tela.quizz .pergunta:not(.respondida) .alternativa:hover {
+    filter: brightness(1.4);
+}
+.tela.quizz .pergunta:not(.respondida) .alternativa:active {
+    filter: brightness(1);
+}
+
+.tela.quizz .pergunta .alternativa p {
+    color: #000;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 23px;
+    margin-top: 10px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    transition: color ease 0.3s;
+}
+
+.tela.quizz .pergunta.respondida .alternativa.correta p {
+    color: #009c22;
+}
+.tela.quizz .pergunta.respondida .alternativa.errada p {
+    color: #ff4b4b;
+}
+
+.tela.quizz .pergunta.respondida .alternativa:not(.marcada) {
+    opacity: 0.3;
+}
+/* END Perguntas */
+
+/* Resultado */
+.tela.quizz .resultado .resultado-titulo {
+    background-color: #ec362d;
+}
+
+.tela.quizz .resultado img {
+    width: 100%;
+    max-height: 255px;
+    object-fit: cover;
+}
+
+.tela.quizz .resultado p {
+    margin-top: 20px;
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 20px;
+    color: #484848;
+}
+/* END Resultado */
+
+/* Navegação após quizz */
+.navegacao-quizz {
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    align-items: center;
+    margin-bottom: 42px;
+}
+
+.navegacao-quizz button {
+    height: 52px;
+    width: min(100%, 260px);
+    border-radius: 15px;
+    font-size: 21px;
+    line-height: 25px;
+    cursor: pointer;
+    transition: filter ease 0.3s;
+}
+
+.navegacao-quizz button:hover {
+    filter: brightness(0.9);
+}
+.navegacao-quizz button:active {
+    filter: brightness(0.8);
+}
+
+.navegacao-quizz .reiniciar-btn {
+    background-color: #ec362d;
+    color: #fff5f4;
+}
+
+.navegacao-quizz .home-btn {
+    color: #818181;
+    background-color: #fafafa;
+}
+/* END Navegação após quizz */

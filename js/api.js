@@ -11,3 +11,4 @@ async function getQuizzes() {
 }
 
 export { getQuizzes };
+
