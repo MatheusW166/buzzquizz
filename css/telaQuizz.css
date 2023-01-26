@@ -101,10 +101,11 @@
 
 .tela.quizz .pergunta .alternativa {
     overflow: hidden;
-    cursor: pointer;
     transition: filter ease 0.3s, opacity ease 0.3s;
 }
-
+.tela.quizz .pergunta:not(.respondida) .alternativa {
+    cursor: pointer;
+}
 .tela.quizz .pergunta:not(.respondida) .alternativa:hover {
     filter: brightness(1.4);
 }
