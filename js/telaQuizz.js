@@ -1,73 +1,3 @@
-const quizzDeExemplo = {
-  id: 17961,
-  title: "Você gosta de pão com ovo?",
-  image: "https://http.cat/411.jpg",
-  questions: [
-    {
-      title: "Título da pergunta 1",
-      color: "#a16207",
-      answers: [
-        {
-          text: "Texto da resposta 1",
-          image: "https://http.cat/411.jpg",
-          isCorrectAnswer: true,
-        },
-        {
-          text: "Texto da resposta 2",
-          image: "https://http.cat/412.jpg",
-          isCorrectAnswer: false,
-        },
-      ],
-    },
-    {
-      title: "Título da pergunta 2",
-      color: "#166534",
-      answers: [
-        {
-          text: "Texto da resposta 1",
-          image: "https://http.cat/411.jpg",
-          isCorrectAnswer: true,
-        },
-        {
-          text: "Texto da resposta 2",
-          image: "https://http.cat/412.jpg",
-          isCorrectAnswer: false,
-        },
-      ],
-    },
-    {
-      title: "Título da pergunta 3",
-      color: "#6b21a8",
-      answers: [
-        {
-          text: "Texto da resposta 1",
-          image: "https://http.cat/411.jpg",
-          isCorrectAnswer: true,
-        },
-        {
-          text: "Texto da resposta 2",
-          image: "https://http.cat/412.jpg",
-          isCorrectAnswer: false,
-        },
-      ],
-    },
-  ],
-  levels: [
-    {
-      title: "Título do nível 1",
-      image: "https://http.cat/411.jpg",
-      text: "Descrição do nível 1",
-      minValue: 0,
-    },
-    {
-      title: "Título do nível 2",
-      image: "https://http.cat/412.jpg",
-      text: "Descrição do nível 2",
-      minValue: 50,
-    },
-  ],
-};
-
 const STATES = {
   respondida: "respondida",
   marcada: "marcada",
@@ -135,8 +65,9 @@ function criarTelaQuizz(quizz) {
     (prev, curr) => prev + criarLayoutDaPergunta(curr),
     ""
   );
-  const telaQuizz = document.querySelector(".tela-quizz");
+  const telaQuizz = document.querySelector(".tela.quizz");
   telaQuizz.innerHTML = titulo + perguntas;
+  telaQuizz.style.display = "flex";
 }
 
-criarTelaQuizz(quizzDeExemplo);
+export { criarTelaQuizz };
