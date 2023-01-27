@@ -10,7 +10,6 @@ getQuizzes().then((res) => {
 
 const abrirTelaQuizz = (elementoClicado) => {
   const quizz = Quizzes.filter((quizz) => quizz.id == elementoClicado.id)[0];
-  debugger;
   criarTelaQuizz(quizz);
   const outrasTelas = document.querySelectorAll(".tela:not(.quizz)");
   outrasTelas.forEach((tela) => (tela.style.display = "none"));
