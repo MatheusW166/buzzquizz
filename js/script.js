@@ -105,20 +105,6 @@ window.validacaoTituloQuizz = function (inputTitulo) {
   return true;
 };
 
-window.validacaoNumeroPerguntasQuizz = function (inputPerguntas) {
-  if (inputPerguntas.length < 3) {
-    return false;
-  }
-  return true;
-};
-
-window.validacaoNumeroNiveisQuizz = function (inputNiveis) {
-  if (inputNiveis.length < 2) {
-    return false;
-  }
-  return true;
-};
-
 window.validarURL = function (inputURL) {
   try {
     const link = new URL(inputURL);
@@ -127,28 +113,25 @@ window.validarURL = function (inputURL) {
     console.log(error);
   }
   return true;
-};
-
-window.validarURL = function (inputURL) {
-  try {
-    const link = new URL(inputURL);
-    return link.protocol === "http:" || link.protocol === "https:";
-  } catch (error) {
-    console.log(error);
-  }
 };
 
 window.criarComeco = function () {
   const inputTitulo = document.querySelector(".titulo").value;
   const inputURL = document.querySelector(".url").value;
-  const inputPerguntas = document.querySelector(".perguntas").value;
-  const inputNiveis = document.querySelector(".niveis").value;
+  const inputPerguntas = document.querySelector(".perguntas").value
+  const inputNiveis = document.querySelector(".niveis").value
   if (
     !validacaoTituloQuizz(inputTitulo) ||
-    !validarURL(inputURL) ||
-    !validacaoNumeroPerguntasQuizz(inputPerguntas) ||
-    !validacaoNumeroNiveisQuizz(inputNiveis)
+    !validarURL(inputURL) 
   ) {
+    alert("Ocorreu um erro! Preencha os dados corretamente");
+    return;
+  }
+  if (inputPerguntas < 3){
+    alert("Ocorreu um erro! Preencha os dados corretamente");
+    return;
+  }
+  if (inputNiveis < 2){
     alert("Ocorreu um erro! Preencha os dados corretamente");
     return;
   }
