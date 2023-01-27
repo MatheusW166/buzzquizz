@@ -10,7 +10,6 @@ getQuizzes().then((res) => {
 
 const abrirTelaQuizz = (elementoClicado) => {
   const quizz = Quizzes.filter((quizz) => quizz.id == elementoClicado.id)[0];
-  debugger;
   criarTelaQuizz(quizz);
   const outrasTelas = document.querySelectorAll(".tela:not(.quizz)");
   outrasTelas.forEach((tela) => (tela.style.display = "none"));
@@ -69,16 +68,7 @@ function pegarQuizesLocais() {
 
 function exibirQuizzesLocais(QuizLocal) {
   const listaQuizzes = document.querySelector(".listaQuizzesLocais");
-  console.log(QuizLocal);
-  let template = `
-  <li id="${QuizLocal.id}" class="QuizzListado clicavel">
-      ${tagImgCustomizada({
-        classes: "imgQuizz",
-        src: QuizLocal.image,
-        alt: QuizLocal.title,
-      })}
-      <label class="tituloQuizz">${QuizLocal.title}</label>
-  </li>`;
+  let template = criarLayoutQuizzListado(QuizLocal);
   listaQuizzes.innerHTML += template;
 }
 export {};
