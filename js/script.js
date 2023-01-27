@@ -104,6 +104,30 @@ window.validacaoTituloQuizz = function (inputTitulo) {
   return true;
 };
 
+window.validacaoNumeroPerguntasQuizz = function (inputPerguntas) {
+  if (inputPerguntas.length < 3) {
+    return false;
+  }
+  return true;
+};
+
+window.validacaoNumeroNiveisQuizz = function (inputNiveis) {
+  if (inputNiveis.length < 2) {
+    return false;
+  }
+  return true;
+};
+
+window.validarURL = function (inputURL) {
+  try {
+    const link = new URL(inputURL);
+    return link.protocol === "http:" || link.protocol === "https:";
+  } catch (error) {
+    console.log(error);
+  }
+  return true;
+};
+
 window.validarURL = function (inputURL) {
   try {
     const link = new URL(inputURL);
@@ -116,7 +140,14 @@ window.validarURL = function (inputURL) {
 window.criarComeco = function () {
   const inputTitulo = document.querySelector(".titulo").value;
   const inputURL = document.querySelector(".url").value;
-  if (!validacaoTituloQuizz(inputTitulo) || !validarURL(inputURL)) {
+  const inputPerguntas = document.querySelector(".perguntas").value;
+  const inputNiveis = document.querySelector(".niveis").value;
+  if (
+    !validacaoTituloQuizz(inputTitulo) ||
+    !validarURL(inputURL) ||
+    !validacaoNumeroPerguntasQuizz(inputPerguntas) ||
+    !validacaoNumeroNiveisQuizz(inputNiveis)
+  ) {
     alert("Ocorreu um erro! Preencha os dados corretamente");
     return;
   }
@@ -171,10 +202,6 @@ window.nivel3 = function () {
   criarNivelTres.classList.add("remocaoDisplay");
 };
 window.finalizar = function () {
-  finalizar();
-};
-
-function finalizar() {
   const criar = document.querySelector(".pagina3");
   criar.classList.add("remocaoDisplay");
   let quizesLocais = document.querySelector(".QuizesUsuario");
@@ -185,6 +212,4 @@ function finalizar() {
   quizesLocais.classList.remove("sumir");
   quizesLocais = document.querySelector(".listaQuizzes");
   quizesLocais.classList.remove("sumir");
-}
-
-finalizar();
+};
