@@ -15,27 +15,36 @@ const abrirTelaQuizz = (elementoClicado) => {
   outrasTelas.forEach((tela) => (tela.style.display = "none"));
 };
 
-function exibirQuizzes() {
-  const listaQuizzes = document.querySelector(".listaQuizzes");
-  listaQuizzes.innerHTML = "";
-  for (let cont = 0; cont < Quizzes.length; cont++) {
-    let template = `
-        <li id="${Quizzes[cont].id}" class="QuizzListado clicavel">
-            ${tagImgCustomizada({
-              classes: "imgQuizz",
-              src: Quizzes[cont].image,
-              alt: Quizzes[cont].title,
-            })}
-            <label class="tituloQuizz">${Quizzes[cont].title}</label>
-        </li>`;
-    listaQuizzes.innerHTML += template;
-  }
-  armazenarQuizesLocal();
-  pegarQuizesLocais();
+function criarLayoutQuizzListado(quizz) {
+  return `
+  <li id="${quizz.id}" class="QuizzListado clicavel">
+    ${tagImgCustomizada({
+      classes: "imgQuizz",
+      src: quizz.image,
+      alt: quizz.title,
+    })}
+    <label class="tituloQuizz">${quizz.title}</label>
+  </li>
+  `;
+}
+
+function acaoClicarNosQuizzesListados() {
   const quizzesListados = document.querySelectorAll(".QuizzListado");
   quizzesListados.forEach((quizzListado) => {
     quizzListado.onclick = (e) => abrirTelaQuizz(e.currentTarget);
   });
+}
+
+function exibirQuizzes() {
+  const listaQuizzes = document.querySelector(".listaQuizzes");
+  listaQuizzes.innerHTML = "";
+  for (let cont = 0; cont < Quizzes.length; cont++) {
+    let template = criarLayoutQuizzListado(Quizzes[cont]);
+    listaQuizzes.innerHTML += template;
+  }
+  armazenarQuizesLocal();
+  pegarQuizesLocais();
+  acaoClicarNosQuizzesListados();
 }
 
 function armazenarQuizesLocal() {
@@ -46,6 +55,7 @@ function armazenarQuizesLocal() {
     localStorage.setItem(id, QuizSerializado); // Armazenando a string na chave "lista" do Local Storage
   }
 }
+
 function pegarQuizesLocais() {
   let QuizLocal;
   for (let cont = 0; cont < 3; cont++) {
@@ -54,21 +64,21 @@ function pegarQuizesLocais() {
     QuizLocal = JSON.parse(QuizSerializado); // Transformando a string de volta na array original
     exibirQuizzesLocais(QuizLocal);
   }
-  const quizzesListados = document.querySelectorAll(".QuizzListado");
-  quizzesListados.forEach((quizzListado) => {
-    quizzListado.onclick = (e) => abrirTelaQuizz(e.currentTarget);
-  });
 }
+
 function exibirQuizzesLocais(QuizLocal) {
   const listaQuizzes = document.querySelector(".listaQuizzesLocais");
 
   let template = `
-          <li class="QuizzListado clicavel">
-              <img class="imgQuizz" src="${QuizLocal.image}" alt="${QuizLocal.title}">
-              <label class="tituloQuizz">${QuizLocal.title}</label>
-          </li>`;
+  <li id="${QuizLocal.id}" class="QuizzListado clicavel">
+      ${tagImgCustomizada({
+        classes: "imgQuizz",
+        src: QuizLocal.image,
+        alt: QuizLocal.title,
+      })}
+      <label class="tituloQuizz">${QuizLocal.title}</label>
+  </li>`;
   listaQuizzes.innerHTML += template;
-  
 }
 export {};
 
@@ -88,27 +98,27 @@ window.criarTeste = function () {
 };
 
 window.validacaoTituloQuizz = function (inputTitulo) {
-  if(inputTitulo.length<20 || inputTitulo.length>65){
+  if (inputTitulo.length < 20 || inputTitulo.length > 65) {
     return false;
- }
- return true;
-}
-
-window.validarURL = function (inputURL){
-  try {
-  const link = new URL (inputURL)
-  return link.protocol === "http:" || link.protocol === "https:"
-  } catch (error) {
-    console.log(error)
   }
-}
+  return true;
+};
+
+window.validarURL = function (inputURL) {
+  try {
+    const link = new URL(inputURL);
+    return link.protocol === "http:" || link.protocol === "https:";
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 window.criarComeco = function () {
   const inputTitulo = document.querySelector(".titulo").value;
   const inputURL = document.querySelector(".url").value;
-  if (!validacaoTituloQuizz(inputTitulo) || !validarURL(inputURL)){
-    alert("Ocorreu um erro! Preencha os dados corretamente")
-   return;
+  if (!validacaoTituloQuizz(inputTitulo) || !validarURL(inputURL)) {
+    alert("Ocorreu um erro! Preencha os dados corretamente");
+    return;
   }
   const criar = document.querySelector(".pagina1");
   criar.classList.add("remocaoDisplay");
@@ -161,6 +171,10 @@ window.nivel3 = function () {
   criarNivelTres.classList.add("remocaoDisplay");
 };
 window.finalizar = function () {
+  finalizar();
+};
+
+function finalizar() {
   const criar = document.querySelector(".pagina3");
   criar.classList.add("remocaoDisplay");
   let quizesLocais = document.querySelector(".QuizesUsuario");
@@ -171,4 +185,6 @@ window.finalizar = function () {
   quizesLocais.classList.remove("sumir");
   quizesLocais = document.querySelector(".listaQuizzes");
   quizesLocais.classList.remove("sumir");
-};
+}
+
+finalizar();
