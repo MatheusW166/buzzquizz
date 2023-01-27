@@ -28,6 +28,7 @@
           <p class="NaoCriou">Você não criou nenhum quizz ainda :(</p>
           <button class="criar" onclick="criarTeste()">Criar Quizz</button>
         </div>
+
         <div class="pagina1 remocaoDisplay">
           <div class="comece">
             <p class="comeco">Comece pelo começo</p>
@@ -230,9 +231,19 @@
             </button>
           </div>
         </div>
+        <div class="pagina4 remocaoDisplay">
+          <div class="comece">
+            <p class="comeco">Seu quizz está pronto!</p>
+          </div>
+        </div>
+
         <div class="QuizesUsuario sumir">
           <div class="SeusQuizes">Seus Quizzes</div>
-          <ion-icon onclick="criarTeste()" class="add" name="add-circle"></ion-icon>
+          <ion-icon
+            onclick="criarTeste()"
+            class="add"
+            name="add-circle"
+          ></ion-icon>
         </div>
         <ul class="listaQuizzesLocais sumir"></ul>
         <div class="todosOsQuizzes">Todos os Quizzes</div>
@@ -241,8 +252,14 @@
 
       <div style="display: none" class="tela quizz"></div>
     </div>
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+    ></script>
     <script
       type="module"
       src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"

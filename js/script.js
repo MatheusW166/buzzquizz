@@ -102,6 +102,7 @@ window.perguntaDois = function () {
   pergunta.classList.remove("remocaoDisplay");
   criarPerguntaUm.classList.add("remocaoDisplay");
 };
+
 window.perguntaTres = function () {
   const pergunta = document.querySelector(".container4");
   const criarPerguntaUm = document.querySelector(".pergunta3Inicio");
@@ -111,6 +112,8 @@ window.perguntaTres = function () {
 window.prosseguir = function () {
   const criar = document.querySelector(".pagina2");
   criar.classList.add("remocaoDisplay");
+  const fundo = document.querySelector(".container");
+  fundo.classList.add("corDeFundo");
   const aparecerPagina3 = document.querySelector(".pagina3");
   aparecerPagina3.classList.remove("remocaoDisplay");
 };

@@ -82,6 +82,8 @@
     line-height: 27px;
     color: #fff;
     text-align: center;
+
+    word-break: break-all;
     display: -webkit-box;
     -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
@@ -156,6 +158,13 @@
     font-size: 17px;
     line-height: 20px;
     color: #484848;
+    width: 100%;
+
+    word-break: break-all;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 /* END Resultado */
 
