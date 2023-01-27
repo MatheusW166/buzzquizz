@@ -54,6 +54,10 @@ function pegarQuizesLocais() {
     QuizLocal = JSON.parse(QuizSerializado); // Transformando a string de volta na array original
     exibirQuizzesLocais(QuizLocal);
   }
+  const quizzesListados = document.querySelectorAll(".QuizzListado");
+  quizzesListados.forEach((quizzListado) => {
+    quizzListado.onclick = (e) => abrirTelaQuizz(e.currentTarget);
+  });
 }
 function exibirQuizzesLocais(QuizLocal) {
   const listaQuizzes = document.querySelector(".listaQuizzesLocais");
@@ -64,6 +68,7 @@ function exibirQuizzesLocais(QuizLocal) {
               <label class="tituloQuizz">${QuizLocal.title}</label>
           </li>`;
   listaQuizzes.innerHTML += template;
+  
 }
 export {};
 
