@@ -69,16 +69,7 @@ function pegarQuizesLocais() {
 
 function exibirQuizzesLocais(QuizLocal) {
   const listaQuizzes = document.querySelector(".listaQuizzesLocais");
-  console.log(QuizLocal);
-  let template = `
-  <li id="${QuizLocal.id}" class="QuizzListado clicavel">
-      ${tagImgCustomizada({
-        classes: "imgQuizz",
-        src: QuizLocal.image,
-        alt: QuizLocal.title,
-      })}
-      <label class="tituloQuizz">${QuizLocal.title}</label>
-  </li>`;
+  let template = criarLayoutQuizzListado(QuizLocal);
   listaQuizzes.innerHTML += template;
 }
 export {};
