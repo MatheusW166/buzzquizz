@@ -461,11 +461,7 @@ main {
 }
 
 .remocaoDisplay {
-<<<<<<< HEAD
-display:none !important;
-=======
     display: none;
->>>>>>> bdffc1890354a98b66afc16432a3f04faf149b2f
 }
 
 @media (min-width: 650px) {
