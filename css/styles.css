@@ -404,7 +404,7 @@ color: #FFF5F4;
 }
 
 .remocaoDisplay {
-display:none;
+display:none !important;
 }
 
 @media (min-width: 650px){

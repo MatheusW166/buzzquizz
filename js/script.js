@@ -78,7 +78,29 @@ window.criarTeste = function () {
   aparecerPagina1.classList.remove("remocaoDisplay");
 };
 
+window.validacaoTituloQuizz = function (inputTitulo) {
+  if(inputTitulo.length<20 || inputTitulo.length>65){
+    return false;
+ }
+ return true;
+}
+
+window.validarURL = function (inputURL){
+  try {
+  const link = new URL (inputURL)
+  return link.protocol === "http:" || link.protocol === "https:"
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 window.criarComeco = function () {
+  const inputTitulo = document.querySelector(".titulo").value;
+  const inputURL = document.querySelector(".url").value;
+  if (!validacaoTituloQuizz(inputTitulo) || !validarURL(inputURL)){
+    alert("Ocorreu um erro! Preencha os dados corretamente")
+   return;
+  }
   const criar = document.querySelector(".pagina1");
   criar.classList.add("remocaoDisplay");
   const aparecerPagina2 = document.querySelector(".pagina2");
@@ -91,6 +113,7 @@ window.perguntaUm = function () {
   pergunta.classList.remove("remocaoDisplay");
   criarPerguntaUm.classList.add("remocaoDisplay");
 };
+
 window.perguntaDois = function () {
   const pergunta = document.querySelector(".container3");
   const criarPerguntaUm = document.querySelector(".pergunta2Inicio");
@@ -107,8 +130,6 @@ window.perguntaTres = function () {
 window.prosseguir = function () {
   const criar = document.querySelector(".pagina2");
   criar.classList.add("remocaoDisplay");
-  const fundo = document.querySelector(".container");
-  fundo.classList.add("corDeFundo");
   const aparecerPagina3 = document.querySelector(".pagina3");
   aparecerPagina3.classList.remove("remocaoDisplay");
 };
