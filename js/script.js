@@ -79,6 +79,10 @@ window.criarTeste = function () {
   quizesLocais.classList.add("sumir");
   quizesLocais = document.querySelector(".listaQuizzes");
   quizesLocais.classList.add("sumir");
+  quizesLocais = document.querySelector(".QuizesUsuario");
+  quizesLocais.classList.add("sumir");
+  quizesLocais = document.querySelector(".listaQuizzesLocais");
+  quizesLocais.classList.add("sumir");
   const aparecerPagina1 = document.querySelector(".pagina1");
   aparecerPagina1.classList.remove("remocaoDisplay");
 };
