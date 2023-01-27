@@ -29,6 +29,7 @@
     line-height: 46px;
     color: #fff;
     /* Ellipsis na 4ª linha */
+    overflow-wrap: break-word;
     display: -webkit-box;
     -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
@@ -83,7 +84,7 @@
     color: #fff;
     text-align: center;
 
-    word-break: break-all;
+    overflow-wrap: break-word;
     display: -webkit-box;
     -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
@@ -123,6 +124,7 @@
     line-height: 23px;
     margin-top: 10px;
     overflow: hidden;
+    overflow-wrap: break-word;
     display: -webkit-box;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
@@ -160,7 +162,7 @@
     color: #484848;
     width: 100%;
 
-    word-break: break-all;
+    overflow-wrap: break-word;
     display: -webkit-box;
     -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
