@@ -322,7 +322,6 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 136px;
     transition: background ease 0.3s;
 }
 
@@ -458,7 +457,6 @@ main {
     align-items: center;
     justify-content: center;
     margin-bottom: 61px;
-    margin-bottom: 136px;
 }
 
 .remocaoDisplay {
