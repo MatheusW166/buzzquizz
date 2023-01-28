@@ -1,5 +1,10 @@
 import { getQuizzes } from "./api.js";
 import { criarTelaQuizz, tagImgCustomizada } from "./telaQuizz.js";
+import {
+  criarTelaPerguntas,
+  getPerguntasValidas,
+  criarTelaNiveis,
+} from "./criarQuizz.js";
 
 let Quizzes = [];
 getQuizzes().then((res) => {
@@ -71,7 +76,6 @@ function exibirQuizzesLocais(QuizLocal) {
   let template = criarLayoutQuizzListado(QuizLocal);
   listaQuizzes.innerHTML += template;
 }
-export {};
 
 window.criarTeste = function () {
   const criar = document.querySelector(".criarQuiz");
@@ -101,80 +105,55 @@ window.validarURL = function (inputURL) {
     return link.protocol === "http:" || link.protocol === "https:";
   } catch (error) {
     console.log(error);
+    return false;
   }
-  return true;
 };
 
 window.criarComeco = function () {
   const inputTitulo = document.querySelector(".titulo").value;
   const inputURL = document.querySelector(".url").value;
-  const inputPerguntas = document.querySelector(".perguntas").value
-  const inputNiveis = document.querySelector(".niveis").value
-  if (
-    !validacaoTituloQuizz(inputTitulo) ||
-    !validarURL(inputURL) 
-  ) {
+  const inputPerguntas = document.querySelector(".perguntas").value;
+  const inputNiveis = document.querySelector(".niveis").value;
+  if (!validacaoTituloQuizz(inputTitulo) || !validarURL(inputURL)) {
     alert("Ocorreu um erro! Preencha os dados corretamente");
     return;
   }
-  if (inputPerguntas < 3){
+  if (inputPerguntas < 3) {
     alert("Ocorreu um erro! Preencha os dados corretamente");
     return;
   }
-  if (inputNiveis < 2){
+  if (inputNiveis < 2) {
     alert("Ocorreu um erro! Preencha os dados corretamente");
     return;
   }
+
+  criarTelaPerguntas({
+    title: inputTitulo,
+    image: inputURL,
+    questions: inputPerguntas,
+    levels: inputNiveis,
+  });
+
   const criar = document.querySelector(".pagina1");
   criar.classList.add("remocaoDisplay");
   const aparecerPagina2 = document.querySelector(".pagina2");
   aparecerPagina2.classList.remove("remocaoDisplay");
 };
 
-window.perguntaUm = function () {
-  const pergunta = document.querySelector(".container2");
-  const criarPerguntaUm = document.querySelector(".pergunta1Inicio");
-  pergunta.classList.remove("remocaoDisplay");
-  criarPerguntaUm.classList.add("remocaoDisplay");
-};
-
-window.perguntaDois = function () {
-  const pergunta = document.querySelector(".container3");
-  const criarPerguntaUm = document.querySelector(".pergunta2Inicio");
-  pergunta.classList.remove("remocaoDisplay");
-  criarPerguntaUm.classList.add("remocaoDisplay");
-};
-
-window.perguntaTres = function () {
-  const pergunta = document.querySelector(".container4");
-  const criarPerguntaUm = document.querySelector(".pergunta3Inicio");
-  pergunta.classList.remove("remocaoDisplay");
-  criarPerguntaUm.classList.add("remocaoDisplay");
-};
 window.prosseguir = function () {
+  if (!getPerguntasValidas()) {
+    alert("Ocorreu um erro! Preencha os dados corretamente.");
+    return;
+  }
+
+  criarTelaNiveis();
+
   const criar = document.querySelector(".pagina2");
   criar.classList.add("remocaoDisplay");
   const aparecerPagina3 = document.querySelector(".pagina3");
   aparecerPagina3.classList.remove("remocaoDisplay");
 };
-window.nivel1 = function () {
-  const pergunta = document.querySelector(".container5");
-  const criarNivelUm = document.querySelector(".nivel1Inicio");
-  pergunta.classList.remove("remocaoDisplay");
-  criarNivelUm.classList.add("remocaoDisplay");
-};
-window.nivel2 = function () {
-  const pergunta = document.querySelector(".container6");
-  const criarNivelDois = document.querySelector(".nivel2Inicio");
-  pergunta.classList.remove("remocaoDisplay");
-  criarNivelDois.classList.add("remocaoDisplay");
-};
-window.nivel3 = function () {
-  const pergunta = document.querySelector(".container7");
-  const criarNivelTres = document.querySelector(".nivel3Inicio");
-  pergunta.classList.remove("remocaoDisplay");
-  criarNivelTres.classList.add("remocaoDisplay");
-};
+
 window.finalizar = function () {
   const criar = document.querySelector(".pagina3");
   criar.classList.add("remocaoDisplay");
@@ -187,3 +166,5 @@ window.finalizar = function () {
   quizesLocais = document.querySelector(".listaQuizzes");
   quizesLocais.classList.remove("sumir");
 };
+
+export {};
