@@ -85,8 +85,7 @@ function isTextoPerguntaValido(texto) {
 
 function isCorDeFundoValida(cor) {
   const hex6digitos = /^#[A-F\d]{6}$/gi;
-  const hex3digitosIguais = /^#([A-F\d])\1{2}$/gi;
-  return hex6digitos.test(cor) || hex3digitosIguais.test(cor);
+  return hex6digitos.test(cor);
 }
 
 function getCabecalhoValidoPergunta(containerPergunta) {
@@ -356,11 +355,9 @@ async function salvarQuizz() {
   try {
     const quizz = buildQuizz();
     const res = await criarQuizz(quizz);
-    console.log(res);
     return res;
   } catch (err) {
-    console.log(`Deu ruim rapaz: ${err}`);
-    return err;
+    throw err;
   }
 }
 
