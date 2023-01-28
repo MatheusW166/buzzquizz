@@ -1,4 +1,5 @@
 import { criarQuizz } from "./api.js";
+import { criarLayoutQuizzListado } from "./script.js";
 
 // Informações básicas
 const INFO_BASICAS = {};
@@ -264,8 +265,6 @@ function getNivelValido(containerNivel) {
   const image = containerNivel.querySelector(".URLnivel").value;
   const descricao = containerNivel.querySelector(".descricao").value;
 
-  console.log(containerNivel);
-
   if (
     isTituloNivelValid(titulo) &&
     isPorcentagemMinimaValid(percentual) &&
@@ -289,7 +288,6 @@ function getNiveisValidos() {
   let possuiNivelZero = false;
   for (let i = 0; i < containersNiveis.length; i++) {
     const nivel = getNivelValido(containersNiveis[i]);
-    console.log(nivel);
     if (!nivel) return false;
     addLevel(nivel);
     if (nivel.minValue === 0) possuiNivelZero = true;
@@ -354,11 +352,30 @@ function buildQuizz() {
 async function salvarQuizz() {
   try {
     const quizz = buildQuizz();
-    const res = await criarQuizz(quizz);
-    return res;
+    return await criarQuizz(quizz);
   } catch (err) {
     throw err;
   }
 }
 
 export { salvarQuizz };
+
+// Sucesso na criação
+function criarLayoutOpcoesSucesso() {
+  return `
+  <div style="display:flex" class="navegacao-quizz">
+    <button onclick="" class="reiniciar-btn">Acessar Quizz</button>
+    <button onclick="" class="home-btn">Voltar pra home</button>
+  </div>
+  `;
+}
+
+function criarTelaSucesso(quizz) {
+  const telaSucesso = document.querySelector(".sucesso-criacao");
+  const quizzListado = criarLayoutQuizzListado(quizz, "div");
+  const opcoesSucesso = criarLayoutOpcoesSucesso();
+
+  telaSucesso.innerHTML += quizzListado + opcoesSucesso;
+}
+
+export { criarTelaSucesso };

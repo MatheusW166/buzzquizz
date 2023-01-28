@@ -6,6 +6,7 @@ import {
   criarTelaNiveis,
   getNiveisValidos,
   salvarQuizz,
+  criarTelaSucesso,
 } from "./criarQuizz.js";
 
 let Quizzes = [];
@@ -22,16 +23,16 @@ const abrirTelaQuizz = (elementoClicado) => {
   outrasTelas.forEach((tela) => (tela.style.display = "none"));
 };
 
-function criarLayoutQuizzListado(quizz) {
+function criarLayoutQuizzListado(quizz, tag = "li") {
   return `
-  <li id="${quizz.id}" class="QuizzListado clicavel">
+  <${tag} id="${quizz.id}" class="QuizzListado clicavel">
     ${tagImgCustomizada({
       classes: "imgQuizz",
       src: quizz.image,
       alt: quizz.title,
     })}
     <label class="tituloQuizz">${quizz.title}</label>
-  </li>
+  </${tag}>
   `;
 }
 
@@ -163,20 +164,25 @@ window.finalizar = function () {
   }
 
   salvarQuizz()
-    .then((_) => alert("Quizz salvo!"))
+    .then((quizz) => {
+      criarTelaSucesso(quizz);
+      document.querySelector(".criar-niveis").classList.add("remocaoDisplay");
+      document
+        .querySelector(".sucesso-criacao")
+        .classList.remove("remocaoDisplay");
+    })
     .catch((_) => alert("Não foi possível salvar seu quizz!"));
 
-  return;
-  const criar = document.querySelector(".pagina3");
-  criar.classList.add("remocaoDisplay");
-  let quizesLocais = document.querySelector(".QuizesUsuario");
-  quizesLocais.classList.remove("sumir");
-  quizesLocais = document.querySelector(".listaQuizzesLocais");
-  quizesLocais.classList.remove("sumir");
-  quizesLocais = document.querySelector(".todosOsQuizzes");
-  quizesLocais.classList.remove("sumir");
-  quizesLocais = document.querySelector(".listaQuizzes");
-  quizesLocais.classList.remove("sumir");
+  // const criar = document.querySelector(".pagina3");
+  // criar.classList.add("remocaoDisplay");
+  // let quizesLocais = document.querySelector(".QuizesUsuario");
+  // quizesLocais.classList.remove("sumir");
+  // quizesLocais = document.querySelector(".listaQuizzesLocais");
+  // quizesLocais.classList.remove("sumir");
+  // quizesLocais = document.querySelector(".todosOsQuizzes");
+  // quizesLocais.classList.remove("sumir");
+  // quizesLocais = document.querySelector(".listaQuizzes");
+  // quizesLocais.classList.remove("sumir");
 };
 
-export {};
+export { criarLayoutQuizzListado };
