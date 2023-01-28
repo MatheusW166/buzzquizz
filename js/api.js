@@ -7,7 +7,7 @@ async function getQuizzes() {
     return res.data;
   } catch (err) {
     console.log(`Deu ruim rapaz: ${err}`);
-    return err;
+    throw err;
   }
 }
 
@@ -18,7 +18,7 @@ async function getQuizzPorId(idQuizz) {
     return res.data;
   } catch (err) {
     console.log(err);
-    return err;
+    throw err;
   }
 }
 
@@ -29,7 +29,7 @@ async function criarQuizz(quizz) {
     return res.data;
   } catch (err) {
     console.log(err);
-    return err;
+    throw err;
   }
 }
 
@@ -42,7 +42,7 @@ async function apagarQuizz(idQuizz, key) {
     return res.data;
   } catch (err) {
     console.log(err);
-    return err;
+    throw err;
   }
 }
 
@@ -55,7 +55,7 @@ async function atualizarQuizz(idQuizz, novoQuizz, key) {
     return res.data;
   } catch (err) {
     console.log(err);
-    return err;
+    throw err;
   }
 }
 
