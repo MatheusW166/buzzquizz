@@ -1,3 +1,5 @@
+import { criarQuizz } from "./api.js";
+
 // Informações básicas
 const INFO_BASICAS = {};
 
@@ -240,6 +242,63 @@ function buildLevel({ title, image, text, minValue = 0 }) {
   };
 }
 
+function isTituloNivelValid(titulo) {
+  return titulo && titulo.length >= 10;
+}
+
+function isDescricaoNivelValid(descricao) {
+  return descricao && descricao.length >= 30;
+}
+
+function isPorcentagemMinimaValid(porcentagem) {
+  const porcentagemEmNumber = Number(porcentagem);
+  return (
+    !isNaN(porcentagemEmNumber) &&
+    porcentagemEmNumber >= 0 &&
+    porcentagemEmNumber <= 100
+  );
+}
+
+function getNivelValido(containerNivel) {
+  const titulo = containerNivel.querySelector(".tituloNivel").value;
+  const percentual = containerNivel.querySelector(".percentual").value;
+  const image = containerNivel.querySelector(".URLnivel").value;
+  const descricao = containerNivel.querySelector(".descricao").value;
+
+  console.log(containerNivel);
+
+  if (
+    isTituloNivelValid(titulo) &&
+    isPorcentagemMinimaValid(percentual) &&
+    isImagemUrlValida(image) &&
+    isDescricaoNivelValid(descricao)
+  ) {
+    return buildLevel({
+      title: titulo,
+      image: image,
+      text: descricao,
+      minValue: Number(percentual),
+    });
+  }
+
+  return false;
+}
+
+function getNiveisValidos() {
+  resetarLevels();
+  const containersNiveis = document.querySelectorAll(".container-nivel");
+  let possuiNivelZero = false;
+  for (let i = 0; i < containersNiveis.length; i++) {
+    const nivel = getNivelValido(containersNiveis[i]);
+    console.log(nivel);
+    if (!nivel) return false;
+    addLevel(nivel);
+    if (nivel.minValue === 0) possuiNivelZero = true;
+  }
+  if (!possuiNivelZero) return false;
+  return getLevels();
+}
+
 function criarLayoutNivel(idx) {
   return `
   <div class="container container-nivel container5 remocaoDisplay">
@@ -278,4 +337,31 @@ function criarTelaNiveis() {
   addAcoesAbrirContainerNosToggles(telaCriarNiveis);
 }
 
-export { criarTelaNiveis };
+export { criarTelaNiveis, getNiveisValidos };
+
+// Build quizz
+function buildQuizz() {
+  const infoBasic = getInfoBasicasQuizz();
+  const questions = getQuestions();
+  const levels = getLevels();
+  return {
+    title: infoBasic.title,
+    image: infoBasic.image,
+    questions: questions,
+    levels: levels,
+  };
+}
+
+async function salvarQuizz() {
+  try {
+    const quizz = buildQuizz();
+    const res = await criarQuizz(quizz);
+    console.log(res);
+    return res;
+  } catch (err) {
+    console.log(`Deu ruim rapaz: ${err}`);
+    return err;
+  }
+}
+
+export { salvarQuizz };

@@ -4,6 +4,8 @@ import {
   criarTelaPerguntas,
   getPerguntasValidas,
   criarTelaNiveis,
+  getNiveisValidos,
+  salvarQuizz,
 } from "./criarQuizz.js";
 
 let Quizzes = [];
@@ -155,6 +157,16 @@ window.prosseguir = function () {
 };
 
 window.finalizar = function () {
+  if (!getNiveisValidos()) {
+    alert("Ocorreu um erro! Preencha os dados corretamente.");
+    return;
+  }
+
+  salvarQuizz()
+    .then((_) => alert("Quizz salvo!"))
+    .catch((_) => alert("Não foi possível salvar seu quizz!"));
+
+  return;
   const criar = document.querySelector(".pagina3");
   criar.classList.add("remocaoDisplay");
   let quizesLocais = document.querySelector(".QuizesUsuario");
