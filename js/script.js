@@ -11,7 +11,6 @@ import {
 
 let Quizzes = [];
 getQuizzes().then((res) => {
-  console.log(res);
   Quizzes = res;
   exibirQuizzes();
 });
@@ -116,7 +115,6 @@ window.validarURL = function (inputURL) {
     const link = new URL(inputURL);
     return link.protocol === "http:" || link.protocol === "https:";
   } catch (error) {
-    console.log(error);
     return false;
   }
 };
