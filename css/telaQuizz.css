@@ -206,3 +206,30 @@
     background-color: #fafafa;
 }
 /* END Navegação após quizz */
+
+@media screen and (max-width: 1100px) {
+    .tela.quizz .titulo-container h2 {
+        font-size: 19px;
+        line-height: 22px;
+    }
+
+    .tela.quizz .pergunta h3,
+    .tela.quizz .resultado h3 {
+        font-size: 19px;
+        line-height: 22px;
+    }
+
+    .tela.quizz .pergunta .alternativa p {
+        font-size: 13px;
+        line-height: 15px;
+    }
+
+    .tela.quizz .titulo-container {
+        height: 142px;
+    }
+
+    .tela.quizz .pergunta .pergunta-titulo,
+    .tela.quizz .resultado .resultado-titulo {
+        height: 89px;
+    }
+}
