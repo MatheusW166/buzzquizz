@@ -93,8 +93,10 @@ function criarLayoutResultado() {
     <div class="resultado-titulo">
       <h3></h3>
     </div>
-    ${tagImgCustomizada({ src: "" })}
-    <p></p>
+    <div class="corpo-resultado">
+      ${tagImgCustomizada({ src: "" })}
+      <p></p>
+    </div>
   </article>
   `;
 }
