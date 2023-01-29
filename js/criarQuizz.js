@@ -1,5 +1,5 @@
 import { criarQuizz } from "./api.js";
-import { criarLayoutQuizzListado } from "./script.js";
+import { criarLayoutQuizzListado, abrirTelaQuizz } from "./script.js";
 
 // Informações básicas
 const INFO_BASICAS = {};
@@ -361,21 +361,40 @@ async function salvarQuizz() {
 export { salvarQuizz };
 
 // Sucesso na criação
+function voltarDoSucessoPraHome() {
+  document.querySelector(".sucesso-criacao").classList.add("remocaoDisplay");
+  const quizzesUsuario = document.querySelector(".QuizesUsuario");
+  const quizzesLocais = quizzesUsuario.nextElementSibling;
+  const todosOsQuizzes = quizzesLocais.nextElementSibling;
+  const listaQuizzes = todosOsQuizzes.nextElementSibling;
+  quizzesUsuario.classList.remove("sumir");
+  quizzesLocais.classList.remove("sumir");
+  todosOsQuizzes.classList.remove("sumir");
+  listaQuizzes.classList.remove("sumir");
+}
+
 function criarLayoutOpcoesSucesso() {
   return `
   <div style="display:flex" class="navegacao-quizz">
     <button onclick="" class="reiniciar-btn">Acessar Quizz</button>
-    <button onclick="" class="home-btn">Voltar pra home</button>
+    <button onclick="voltarDoSucessoPraHome()" class="home-btn">Voltar pra home</button>
   </div>
   `;
+}
+
+function addAcoesOpcoesSucesso(telaSucesso, quizz) {
+  const btnAcessarQuizz = telaSucesso.querySelector(".reiniciar-btn");
+  const btnVoltar = btnAcessarQuizz.nextElementSibling;
+  btnAcessarQuizz.onclick = () => abrirTelaQuizz(btnAcessarQuizz, quizz);
+  btnVoltar.onclick = voltarDoSucessoPraHome;
 }
 
 function criarTelaSucesso(quizz) {
   const telaSucesso = document.querySelector(".sucesso-criacao");
   const quizzListado = criarLayoutQuizzListado(quizz, "div");
   const opcoesSucesso = criarLayoutOpcoesSucesso();
-
   telaSucesso.innerHTML += quizzListado + opcoesSucesso;
+  addAcoesOpcoesSucesso(telaSucesso, quizz);
 }
 
 export { criarTelaSucesso };

@@ -59,7 +59,8 @@ function resetarRespostas(perguntas) {
 function removerResultadoeNavegacaoComDelay() {
   setTimeout(() => {
     document.querySelector(".resultado").style.display = "none";
-    document.querySelector(".navegacao-quizz").style.display = "none";
+    document.querySelector(".tela.quizz .navegacao-quizz").style.display =
+      "none";
   }, 600);
 }
 
@@ -99,7 +100,7 @@ function criarLayoutResultado() {
 }
 
 function mostrarNavegacao() {
-  document.querySelector(".navegacao-quizz").style.display = "flex";
+  document.querySelector(".tela.quizz .navegacao-quizz").style.display = "flex";
 }
 
 function mostrarResultado(nivel, percentual) {

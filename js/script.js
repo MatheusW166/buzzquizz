@@ -16,8 +16,10 @@ getQuizzes().then((res) => {
   exibirQuizzes();
 });
 
-const abrirTelaQuizz = (elementoClicado) => {
-  const quizz = Quizzes.filter((quizz) => quizz.id == elementoClicado.id)[0];
+const abrirTelaQuizz = (elementoClicado, currentQuizz = null) => {
+  const quizz =
+    currentQuizz ||
+    Quizzes.filter((quizz) => quizz.id == elementoClicado.id)[0];
   criarTelaQuizz(quizz);
   const outrasTelas = document.querySelectorAll(".tela:not(.quizz)");
   outrasTelas.forEach((tela) => (tela.style.display = "none"));
@@ -157,6 +159,11 @@ window.prosseguir = function () {
   aparecerPagina3.classList.remove("remocaoDisplay");
 };
 
+function abrirTelaSucesso() {
+  document.querySelector(".criar-niveis").classList.add("remocaoDisplay");
+  document.querySelector(".sucesso-criacao").classList.remove("remocaoDisplay");
+}
+
 window.finalizar = function () {
   if (!getNiveisValidos()) {
     alert("Ocorreu um erro! Preencha os dados corretamente.");
@@ -166,23 +173,9 @@ window.finalizar = function () {
   salvarQuizz()
     .then((quizz) => {
       criarTelaSucesso(quizz);
-      document.querySelector(".criar-niveis").classList.add("remocaoDisplay");
-      document
-        .querySelector(".sucesso-criacao")
-        .classList.remove("remocaoDisplay");
+      abrirTelaSucesso();
     })
     .catch((_) => alert("Não foi possível salvar seu quizz!"));
-
-  // const criar = document.querySelector(".pagina3");
-  // criar.classList.add("remocaoDisplay");
-  // let quizesLocais = document.querySelector(".QuizesUsuario");
-  // quizesLocais.classList.remove("sumir");
-  // quizesLocais = document.querySelector(".listaQuizzesLocais");
-  // quizesLocais.classList.remove("sumir");
-  // quizesLocais = document.querySelector(".todosOsQuizzes");
-  // quizesLocais.classList.remove("sumir");
-  // quizesLocais = document.querySelector(".listaQuizzes");
-  // quizesLocais.classList.remove("sumir");
 };
 
-export { criarLayoutQuizzListado };
+export { criarLayoutQuizzListado, abrirTelaQuizz };
