@@ -63,8 +63,7 @@ function carregareExibirQuizzesLocais() {
 
 function armazenarQuizzLocal(quizz) {
   const QuizSerializado = JSON.stringify(quizz); // Array convertida pra uma string
-  const id = Quizzes[cont].id;
-  localStorage.setItem(id, QuizSerializado); // Armazenando a string na chave "lista" do Local Storage
+  localStorage.setItem(quizz.id, QuizSerializado); // Armazenando a string na chave "lista" do Local Storage
   carregareExibirQuizzesLocais(); // Atualiza a lista de quizzes locais
 }
 
@@ -84,7 +83,7 @@ function exibirQuizzesLocais(QuizzesLocais) {
     (element) => (template += criarLayoutQuizzListado(element))
   );
   const listaQuizzes = document.querySelector(".listaQuizzesLocais");
-  listaQuizzes.innerHTML += template;
+  listaQuizzes.innerHTML = template;
 }
 
 function mostrarQuizzesLocais() {
@@ -183,6 +182,7 @@ window.prosseguir = function () {
 };
 
 function abrirTelaSucesso() {
+  ocultarQuizzesLocais();
   document.querySelector(".criar-niveis").classList.add("remocaoDisplay");
   document.querySelector(".sucesso-criacao").classList.remove("remocaoDisplay");
 }
@@ -195,10 +195,11 @@ window.finalizar = function () {
 
   salvarQuizz()
     .then((quizz) => {
+      armazenarQuizzLocal(quizz);
       criarTelaSucesso(quizz);
       abrirTelaSucesso();
     })
     .catch((_) => alert("Não foi possível salvar seu quizz!"));
 };
 
-export { criarLayoutQuizzListado, abrirTelaQuizz, armazenarQuizzLocal };
+export { criarLayoutQuizzListado, abrirTelaQuizz };
