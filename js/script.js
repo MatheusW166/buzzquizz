@@ -63,7 +63,6 @@ function carregareExibirQuizzesLocais() {
 function armazenarQuizzLocal(quizz) {
   const QuizSerializado = JSON.stringify(quizz); // Array convertida pra uma string
   localStorage.setItem(quizz.id, QuizSerializado); // Armazenando a string na chave "lista" do Local Storage
-  carregareExibirQuizzesLocais(); // Atualiza a lista de quizzes locais
 }
 
 function pegarQuizesLocais() {
@@ -92,15 +91,6 @@ function mostrarQuizzesLocais() {
   const listaQuizzesUsuario = quizzesUsuario.nextElementSibling;
   quizzesUsuario.classList.remove("sumir");
   listaQuizzesUsuario.classList.remove("sumir");
-}
-
-function ocultarQuizzesLocais() {
-  const botaoCriarQuizzes = document.querySelector(".criarQuiz");
-  botaoCriarQuizzes.classList.remove("remocaoDisplay");
-  const quizzesUsuario = document.querySelector(".QuizesUsuario");
-  const listaQuizzesUsuario = quizzesUsuario.nextElementSibling;
-  quizzesUsuario.classList.add("sumir");
-  listaQuizzesUsuario.classList.add("sumir");
 }
 
 window.validacaoTituloQuizz = function (inputTitulo) {
@@ -180,7 +170,6 @@ window.prosseguir = function () {
 };
 
 function abrirTelaSucesso() {
-  ocultarQuizzesLocais();
   document.querySelector(".criar-niveis").classList.add("remocaoDisplay");
   document.querySelector(".sucesso-criacao").classList.remove("remocaoDisplay");
 }
@@ -200,4 +189,8 @@ window.finalizar = function () {
     .catch((_) => alert("Não foi possível salvar seu quizz!"));
 };
 
-export { criarLayoutQuizzListado, abrirTelaQuizz };
+export {
+  criarLayoutQuizzListado,
+  abrirTelaQuizz,
+  carregareExibirQuizzesLocais,
+};

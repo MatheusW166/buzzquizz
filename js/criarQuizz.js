@@ -1,5 +1,9 @@
 import { criarQuizz } from "./api.js";
-import { criarLayoutQuizzListado, abrirTelaQuizz } from "./script.js";
+import {
+  criarLayoutQuizzListado,
+  abrirTelaQuizz,
+  carregareExibirQuizzesLocais,
+} from "./script.js";
 
 // Informações básicas
 const INFO_BASICAS = {};
@@ -371,6 +375,7 @@ function voltarDoSucessoPraHome() {
   quizzesLocais.classList.remove("sumir");
   todosOsQuizzes.classList.remove("sumir");
   listaQuizzes.classList.remove("sumir");
+  carregareExibirQuizzesLocais();
 }
 
 function criarLayoutOpcoesSucesso() {
