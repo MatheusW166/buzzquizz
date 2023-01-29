@@ -10,10 +10,15 @@ import {
 } from "./criarQuizz.js";
 
 let Quizzes = [];
-getQuizzes().then((res) => {
-  Quizzes = res;
-  exibirQuizzes();
-});
+
+function atualizarListasQuizzes() {
+  getQuizzes().then((res) => {
+    Quizzes = res;
+    exibirQuizzes();
+  });
+}
+
+atualizarListasQuizzes();
 
 const abrirTelaQuizz = (elementoClicado, currentQuizz = null) => {
   const quizz =
@@ -201,8 +206,4 @@ window.finalizar = function () {
     .catch((_) => alert("Não foi possível salvar seu quizz!"));
 };
 
-export {
-  criarLayoutQuizzListado,
-  abrirTelaQuizz,
-  carregareExibirQuizzesLocais,
-};
+export { criarLayoutQuizzListado, abrirTelaQuizz, atualizarListasQuizzes };

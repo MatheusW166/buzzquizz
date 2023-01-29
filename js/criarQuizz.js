@@ -2,7 +2,7 @@ import { criarQuizz } from "./api.js";
 import {
   criarLayoutQuizzListado,
   abrirTelaQuizz,
-  carregareExibirQuizzesLocais,
+  atualizarListasQuizzes,
 } from "./script.js";
 
 // Informações básicas
@@ -375,7 +375,7 @@ function voltarDoSucessoPraHome() {
   quizzesLocais.classList.remove("sumir");
   todosOsQuizzes.classList.remove("sumir");
   listaQuizzes.classList.remove("sumir");
-  carregareExibirQuizzesLocais();
+  atualizarListasQuizzes();
 }
 
 function criarLayoutOpcoesSucesso() {
