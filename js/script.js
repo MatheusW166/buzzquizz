@@ -38,7 +38,9 @@ function criarLayoutQuizzListado(quizz, tag = "li") {
 }
 
 function addAcaoClicarNosQuizzesListados() {
-  const quizzesListados = document.querySelectorAll(".QuizzListado");
+  const quizzesListados = document.querySelectorAll(
+    ".listaQuizzes .QuizzListado"
+  );
   quizzesListados.forEach((quizzListado) => {
     quizzListado.onclick = (e) => abrirTelaQuizz(e.currentTarget);
   });
@@ -82,6 +84,16 @@ function exibirQuizzesLocais(QuizzesLocais) {
   );
   const listaQuizzes = document.querySelector(".listaQuizzesLocais");
   listaQuizzes.innerHTML = template;
+
+  addAcaoClicarNosQuizzesLocais(QuizzesLocais);
+}
+
+function addAcaoClicarNosQuizzesLocais(QuizzesLocais) {
+  const listaQuizzes = document.querySelector(".listaQuizzesLocais");
+  const quizzesLocaisExibidos = listaQuizzes.querySelectorAll(".QuizzListado");
+  quizzesLocaisExibidos.forEach((element, idx) => {
+    element.onclick = () => abrirTelaQuizz(element, QuizzesLocais[idx]);
+  });
 }
 
 function mostrarQuizzesLocais() {
