@@ -20,7 +20,97 @@ function buildInfoBasicasQuizz({ title, image, questions, levels }) {
   return getInfoBasicasQuizz();
 }
 
+// Input Handlers
+const ERROR_TEXTS = {
+  titulo: "O título deve ter de 20 à 65 letras",
+  url: "Insira uma url válida",
+  perguntas: "Escolha no mínimo 3 perguntas",
+  niveis: "Escolha no mínimo 2 níveis",
+  "texto-pergunta": "A pergunta deve ter no mínimo 20 letras",
+  cor: "Coloque a cor em hexadecimal: #000000",
+  resposta: "A resposta não pode ficar vazia",
+  imagem: "Insira uma url de imagem válida",
+  tituloNivel: "O título deve ter no mínimo 10 letras",
+  percentual: "O percentual deve ser um número de 0 à 100",
+  URLnivel: "Insira uma url de imagem válida",
+  descricao: "A descrição deve ter no mínimo 30 letras",
+};
+
+const tituloTextError = (titulo) =>
+  window.validacaoTituloQuizz(titulo) ? "" : ERROR_TEXTS["titulo"];
+const urlTextError = (url) =>
+  window.validarURL(url) ? "" : ERROR_TEXTS["url"];
+const perguntasTextError = (nDePerguntas) =>
+  nDePerguntas >= 3 ? "" : ERROR_TEXTS["perguntas"];
+const niveisTextError = (nDeNiveis) =>
+  nDeNiveis >= 2 ? "" : ERROR_TEXTS["niveis"];
+const tituloPerguntaTextError = (titulo) =>
+  isTextoPerguntaValido(titulo) ? "" : ERROR_TEXTS["texto-pergunta"];
+const corTextError = (cor) =>
+  isCorDeFundoValida(cor) ? "" : ERROR_TEXTS["cor"];
+const respostaTextError = (resposta) =>
+  isTextoRespostaValido(resposta) ? "" : ERROR_TEXTS["resposta"];
+const tituloNivelTextError = (titulo) =>
+  isTituloNivelValid(titulo) ? "" : ERROR_TEXTS["tituloNivel"];
+const percentualTextError = (percentual) =>
+  isPorcentagemMinimaValid(percentual) ? "" : ERROR_TEXTS["percentual"];
+const descricaoTextError = (descricao) =>
+  isDescricaoNivelValid(descricao) ? "" : ERROR_TEXTS["descricao"];
+
+const INPUTS_ONERROR = {
+  titulo: tituloTextError,
+  url: urlTextError,
+  perguntas: perguntasTextError,
+  niveis: niveisTextError,
+  "texto-pergunta": tituloPerguntaTextError,
+  cor: corTextError,
+  resposta: respostaTextError,
+  imagem: urlTextError,
+  tituloNivel: tituloNivelTextError,
+  percentual: percentualTextError,
+  URLnivel: urlTextError,
+  descricao: descricaoTextError,
+};
+
+function addErroNoSpan(span, message = "") {
+  if (span.innerHTML === message) return;
+  span.innerHTML = message;
+}
+
+function removerErroDoSpan(span) {
+  if (span.innerHTML === "") return;
+  span.innerHTML = "";
+}
+
+window.handleErroOnChange = function (input) {
+  const spanComMsgDeErro = input.nextElementSibling;
+  if (!input.value) {
+    removerErroDoSpan(spanComMsgDeErro);
+    return;
+  }
+  const tipoInput = input.classList[0];
+  const errorText = INPUTS_ONERROR[tipoInput](input.value);
+
+  addErroNoSpan(spanComMsgDeErro, errorText);
+};
+
 // Úteis
+function criarLayoutLoading() {
+  return `
+  <div class="loading full-screen">
+    <span class="loader"></span>
+  </div>
+  `;
+}
+
+function addLoading(container) {
+  container.innerHTML += criarLayoutLoading();
+}
+
+function removeLoading(container) {
+  container.querySelector(".loading").remove();
+}
+
 function fecharTodosOsContainers(parent) {
   const containers = parent.querySelectorAll(".container");
   const toggles = parent.querySelectorAll(".toggle");
@@ -81,11 +171,11 @@ function isImagemUrlValida(imageUrl) {
 }
 
 function isTextoRespostaValido(texto) {
-  return texto && texto.length > 0;
+  return texto && texto.trim().length > 0;
 }
 
 function isTextoPerguntaValido(texto) {
-  return texto && texto.length >= 20;
+  return texto && texto.trim().length >= 20;
 }
 
 function isCorDeFundoValida(cor) {
@@ -95,7 +185,7 @@ function isCorDeFundoValida(cor) {
 
 function getCabecalhoValidoPergunta(containerPergunta) {
   const inputTextoPergunta = containerPergunta.querySelector(".texto-pergunta");
-  const inputCorPergunta = inputTextoPergunta.nextElementSibling;
+  const inputCorPergunta = containerPergunta.querySelector(".cor");
   if (
     !isTextoPerguntaValido(inputTextoPergunta.value) ||
     !isCorDeFundoValida(inputCorPergunta.value)
@@ -118,7 +208,9 @@ function getRespostasValidasPergunta(containerPergunta) {
 
   for (let i = 0; i < inputsRespostasErradas.length; i++) {
     const respostaErradaInput = inputsRespostasErradas[i];
-    const respostaErradaImage = respostaErradaInput.nextElementSibling.value;
+    const respostaErradaImage =
+      respostaErradaInput.parentElement.nextElementSibling.firstElementChild
+        .value;
     if (
       isTextoRespostaValido(respostaErradaInput.value) &&
       isImagemUrlValida(respostaErradaImage)
@@ -135,7 +227,9 @@ function getRespostasValidasPergunta(containerPergunta) {
 
   const inputRespostaCorreta =
     containerPergunta.querySelector(".resposta-correta");
-  const imagemRespostaCorreta = inputRespostaCorreta.nextElementSibling.value;
+  const imagemRespostaCorreta =
+    inputRespostaCorreta.parentElement.nextElementSibling.firstElementChild
+      .value;
 
   if (
     respostasValidas.length === 0 ||
@@ -162,7 +256,10 @@ function getPerguntasValidas() {
   for (let i = 0; i < conatinersPerguntas.length; i++) {
     const question = getCabecalhoValidoPergunta(conatinersPerguntas[i]);
     const answers = getRespostasValidasPergunta(conatinersPerguntas[i]);
-    if (!question || !answers) return false;
+    console.log(answers);
+    if (!question || !answers) {
+      return false;
+    }
     question.answers = answers;
     addQuestion(question);
   }
@@ -176,26 +273,56 @@ function criarLayoutPergunta(idx) {
         <div class="pergunta1">
             <p class="digitePergunta">Pergunta ${idx}</p>
             <div class="inputs2">
-                <input class="texto-pergunta texto" placeholder="Texto da pergunta" />
-                <input class="cor" placeholder="Cor de fundo da pergunta" />
+                <label class="labeled-input">
+                  <input oninput="handleErroOnChange(this)" class="texto-pergunta texto" placeholder="Texto da pergunta" />
+                  <span></span>
+                </label>
+                <label class="labeled-input">
+                  <input oninput="handleErroOnChange(this)" class="cor" placeholder="Cor de fundo da pergunta" />
+                  <span></span>
+                </label>
             </div>
         </div>
         <div class="pergunta1">
             <p class="digitePergunta">Resposta correta</p>
             <div class="inputs2">
-                <input class="resposta-correta resposta" placeholder="Resposta correta" />
-                <input class="imagem" placeholder="URL da imagem" />
+                <label class="labeled-input">
+                  <input oninput="handleErroOnChange(this)" class="resposta resposta-correta" placeholder="Resposta correta" />
+                  <span></span>
+                </label>
+                <label class="labeled-input">
+                  <input oninput="handleErroOnChange(this)" class="imagem" placeholder="URL da imagem" />
+                  <span></span>
+                </label>
             </div>
         </div>
         <div class="pergunta1">
             <p class="digitePergunta">Respostas incorretas</p>
             <div class="inputs2">
-                <input class="resposta-incorreta incorreta1" placeholder="Resposta incorreta 1" />
-                <input class="imagemIncorreta1" placeholder="URL da imagem 1" />
-                <input class="resposta-incorreta incorreta2" placeholder="Resposta incorreta 2" />
-                <input class="imagemIncorreta1" placeholder="URL da imagem 2" />
-                <input class="resposta-incorreta incorreta3" placeholder="Resposta incorreta 3" />
-                <input class="imagemIncorreta3" placeholder="URL da imagem 3" />
+                <label class="labeled-input">
+                  <input oninput="handleErroOnChange(this)" class="resposta resposta-incorreta incorreta1" placeholder="Resposta incorreta 1" />
+                  <span></span>
+                </label>
+                <label class="labeled-input">
+                  <input oninput="handleErroOnChange(this)" class="imagem imagemIncorreta1" placeholder="URL da imagem 1" />
+                  <span></span>
+                </label>
+                <label class="labeled-input">
+                  <input oninput="handleErroOnChange(this)" class="resposta resposta-incorreta incorreta2" placeholder="Resposta incorreta 2" />
+                  <span></span>
+                </label>
+                <label class="labeled-input">
+                  <input oninput="handleErroOnChange(this)" class="imagem imagemIncorreta1" placeholder="URL da imagem 2" />
+                  <span></span>
+                </label>
+                <label class="labeled-input">
+                  <input oninput="handleErroOnChange(this)" class="resposta resposta-incorreta incorreta3" placeholder="Resposta incorreta 3" />
+                  <span></span>
+                </label>
+                <label class="labeled-input">
+                  <input oninput="handleErroOnChange(this)" class="imagem imagemIncorreta3" placeholder="URL da imagem 3" />
+                  <span></span>
+                </label>
             </div>
         </div>
     </div>
@@ -247,11 +374,11 @@ function buildLevel({ title, image, text, minValue = 0 }) {
 }
 
 function isTituloNivelValid(titulo) {
-  return titulo && titulo.length >= 10;
+  return titulo && titulo.trim().length >= 10;
 }
 
 function isDescricaoNivelValid(descricao) {
-  return descricao && descricao.length >= 30;
+  return descricao && descricao.trim().length >= 30;
 }
 
 function isPorcentagemMinimaValid(porcentagem) {
@@ -296,7 +423,9 @@ function getNiveisValidos() {
     addLevel(nivel);
     if (nivel.minValue === 0) possuiNivelZero = true;
   }
-  if (!possuiNivelZero) return false;
+  if (!possuiNivelZero) {
+    return { error: "Um dos níveis deve ser igual a zero." };
+  }
   return getLevels();
 }
 
@@ -306,13 +435,25 @@ function criarLayoutNivel(idx) {
     <div class="pergunta1">
       <p class="digitePergunta">Nível ${idx}</p>
       <div class="inputs2">
-        <input class="tituloNivel" placeholder="Título do nível" />
-        <input class="percentual" placeholder="% de acerto mínima" />
-        <input
-          class="URLnivel"
-          placeholder="URL da imagem do nível"
-        />
-        <input class="descricao" placeholder="Descrição do nível" />
+        <label class="labeled-input">
+          <input oninput="handleErroOnChange(this)" class="tituloNivel" placeholder="Título do nível" />
+          <span></span>
+        </label>
+        <label class="labeled-input">
+          <input oninput="handleErroOnChange(this)" class="percentual" placeholder="% de acerto mínima" />
+          <span></span>
+        </label>
+        <label class="labeled-input">
+          <input oninput="handleErroOnChange(this)"
+            class="URLnivel"
+            placeholder="URL da imagem do nível"
+          />
+          <span></span>
+        </label>
+        <label class="labeled-input">
+          <input oninput="handleErroOnChange(this)" class="descricao" placeholder="Descrição do nível" />
+          <span></span>
+        </label>
       </div>
     </div>
   </div>
@@ -354,10 +495,15 @@ function buildQuizz() {
 }
 
 async function salvarQuizz() {
+  const ultimaTelaCriacao = document.querySelector(".criar-niveis");
   try {
+    addLoading(ultimaTelaCriacao);
     const quizz = buildQuizz();
-    return await criarQuizz(quizz);
+    const res = await criarQuizz(quizz);
+    removeLoading(ultimaTelaCriacao);
+    return res;
   } catch (err) {
+    removeLoading(ultimaTelaCriacao);
     throw err;
   }
 }

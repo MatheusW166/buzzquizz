@@ -12,6 +12,7 @@ import {
 let Quizzes = [];
 
 function atualizarListasQuizzes() {
+  carregareExibirQuizzesLocais();
   getQuizzes().then((res) => {
     Quizzes = res;
     exibirQuizzes();
@@ -58,7 +59,6 @@ function exibirQuizzes() {
   }
   const listaQuizzes = document.querySelector(".listaQuizzes");
   listaQuizzes.innerHTML = template;
-  carregareExibirQuizzesLocais();
   addAcaoClicarNosQuizzesListados();
 }
 
@@ -111,10 +111,8 @@ function mostrarQuizzesLocais() {
 }
 
 window.validacaoTituloQuizz = function (inputTitulo) {
-  if (inputTitulo.length < 20 || inputTitulo.length > 65) {
-    return false;
-  }
-  return true;
+  const titulo = inputTitulo.trim();
+  return titulo.length >= 20 && titulo.length <= 65;
 };
 
 window.validarURL = function (inputURL) {
@@ -192,8 +190,14 @@ function abrirTelaSucesso() {
 }
 
 window.finalizar = function () {
-  if (!getNiveisValidos()) {
+  const res = getNiveisValidos();
+  if (!res) {
     alert("Ocorreu um erro! Preencha os dados corretamente.");
+    return;
+  }
+
+  if ("error" in res) {
+    alert(res.error);
     return;
   }
 
@@ -203,7 +207,7 @@ window.finalizar = function () {
       criarTelaSucesso(quizz);
       abrirTelaSucesso();
     })
-    .catch((_) => alert("Não foi possível salvar seu quizz!"));
+    .catch((err) => console.log(err));
 };
 
 export { criarLayoutQuizzListado, abrirTelaQuizz, atualizarListasQuizzes };

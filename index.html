@@ -36,16 +36,38 @@
           </div>
           <div class="alinhamento">
             <div class="inputs">
-              <input class="titulo" placeholder="Título do seu quizz" />
-              <input class="url" placeholder="URL da imagem do seu quizz" />
-              <input
-                class="perguntas"
-                placeholder="Quantidade de perguntas do seu quizz"
-              />
-              <input
-                class="niveis"
-                placeholder="Quantidade de níveis do seu quizz"
-              />
+              <label class="labeled-input">
+                <input
+                  oninput="handleErroOnChange(this)"
+                  class="titulo"
+                  placeholder="Título do seu quizz"
+                />
+                <span></span>
+              </label>
+              <label class="labeled-input">
+                <input
+                  oninput="handleErroOnChange(this)"
+                  class="url"
+                  placeholder="URL da imagem do seu quizz"
+                />
+                <span></span>
+              </label>
+              <label class="labeled-input">
+                <input
+                  oninput="handleErroOnChange(this)"
+                  class="perguntas"
+                  placeholder="Quantidade de perguntas do seu quizz"
+                />
+                <span></span>
+              </label>
+              <label class="labeled-input">
+                <input
+                  oninput="handleErroOnChange(this)"
+                  class="niveis"
+                  placeholder="Quantidade de níveis do seu quizz"
+                />
+                <span></span>
+              </label>
             </div>
           </div>
           <div class="alinhamentoItens">

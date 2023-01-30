@@ -13,6 +13,24 @@ body {
     font-family: "Roboto", sans-serif;
 }
 
+body:has(.loading.full-screen) {
+    overflow: hidden;
+}
+
+.loading.full-screen {
+    position: absolute;
+    height: 100vh;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.65);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 6;
+    display: flex;
+}
+
 .topo {
     background: #ec362d;
     height: 69px;
@@ -181,6 +199,7 @@ main {
 .aparecer {
     display: inline;
 }
+
 /* Ajustes UX */
 .clicavel {
     cursor: pointer;
@@ -191,6 +210,26 @@ main {
 }
 .clicavel:active {
     filter: brightness(1);
+}
+
+/* Input errors */
+input {
+    outline: none;
+}
+
+.labeled-input span {
+    display: block;
+    margin-top: 3px;
+    color: #ec362d;
+    font-size: 16px;
+}
+
+.labeled-input span:empty {
+    display: none;
+}
+
+.labeled-input:has(span:not(:empty)) input {
+    background: #ffe9e9 !important;
 }
 
 @media screen and (max-width: 1100px) {
@@ -493,7 +532,6 @@ main {
 @media (min-width: 650px) {
     .inputs {
         width: 600px;
-        height: 256px;
         background: #ffffff;
         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
     }
