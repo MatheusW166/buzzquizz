@@ -13,6 +13,11 @@ body {
     font-family: "Roboto", sans-serif;
 }
 
+strong {
+    font-weight: 700;
+    display: inline;
+}
+
 .loading.full-screen {
     top: 0;
     left: 0;

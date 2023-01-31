@@ -48,7 +48,7 @@ function mostrarModalCustomizado({
   if (naoInformado) throw Error(`'${naoInformado}' deve ser informado`);
   const modal = document.querySelector(".modal");
   const tituloContainer = modal.querySelector("h2");
-  const mensagemContainer = modal.querySelector("main");
+  const mensagemContainer = modal.querySelector("main p");
   const btnConfirmar = modal.querySelector(".confirmar");
   const btnCancelar = modal.querySelector(".cancelar");
   tituloContainer.innerHTML = title;
@@ -66,7 +66,7 @@ window.deletarQuizz = function (event, quizzId) {
 
   mostrarModalCustomizado({
     title: "Deseja deletar este Quizz?",
-    mensagem: `Você está prestes a deletar o Quizz "${quizz.title}"`,
+    mensagem: `Você está prestes a deletar o Quizz <strong>${quizz.title}</strong>`,
     onConfirmar: () => {
       window.fecharModal();
       addLoading();
