@@ -65,8 +65,9 @@ window.deletarQuizz = function (event, quizzId) {
   const quizz = JSON.parse(localStorage.getItem(`${quizzId}`));
 
   mostrarModalCustomizado({
-    title: "Deseja deletar este Quizz?",
-    mensagem: `Você está prestes a deletar o Quizz <strong>${quizz.title}</strong>`,
+    title: "Deseja apagar este Quizz?",
+    mensagem: `Você está prestes a apagar o Quizz "<strong>${quizz.title}</strong>"`,
+    btnConfirmarText: "Apagar",
     onConfirmar: () => {
       window.fecharModal();
       addLoading();
@@ -77,7 +78,7 @@ window.deletarQuizz = function (event, quizzId) {
           alert("Seu quizz foi apagado");
         })
         .catch((_) => {
-          alert("Não foi possível deletar o quizz");
+          alert("Não foi possível apagar o quizz");
         })
         .finally(() => removeLoading());
     },

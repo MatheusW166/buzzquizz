@@ -136,3 +136,17 @@ button {
   color: inherit;
   font-size: inherit;
 }
+body {
+  -webkit-tap-highlight-color: none !important;
+}
+*:-moz-any-link:active,
+*[role="button"]:active,
+button:not([disabled]):active,
+input:not([disabled]):active,
+select:not([disabled]):active,
+textarea:not([disabled]):active,
+option:active,
+label:active,
+xul|menulist:active {
+  background-color: transparent !important;
+}
