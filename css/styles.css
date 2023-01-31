@@ -13,21 +13,16 @@ body {
     font-family: "Roboto", sans-serif;
 }
 
-body:has(.loading.full-screen) {
-    overflow: hidden;
-}
-
 .loading.full-screen {
-    position: absolute;
-    height: 100vh;
-    width: 100%;
     top: 0;
     left: 0;
+    position: fixed;
+    width: 100%;
+    height: 100%;
     background: rgba(0, 0, 0, 0.65);
-    display: none;
     justify-content: center;
     align-items: center;
-    z-index: 6;
+    z-index: 10;
     display: flex;
 }
 
@@ -41,7 +36,7 @@ body:has(.loading.full-screen) {
     width: 100%;
     text-align: center;
     padding: 13px 0;
-    z-index: 5;
+    z-index: 6;
 }
 
 .container {
@@ -178,10 +173,20 @@ main {
     line-height: 22px;
     color: #ffffff;
     position: absolute;
-    left: 18px;
-    bottom: 12px;
+    left: 0;
+    bottom: 0;
     z-index: 2;
+
+    cursor: inherit;
+    max-width: calc(100% - 36px);
+    margin: 0 18px 12px 18px;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    overflow-wrap: break-word;
 }
+
 .QuizzListado:before {
     content: "";
     position: absolute;
@@ -370,12 +375,14 @@ input {
 
 .prosseguirNiveis:hover,
 .prosseguir:hover,
-.finalizar:hover {
+.finalizar:hover,
+.modal .confirmar:hover {
     background: #d62b22;
 }
 .prosseguirNiveis:active,
 .prosseguir:active,
-.finalizar:active {
+.finalizar:active,
+.modal .confirmar:active {
     background: #bb1b13;
 }
 
@@ -527,6 +534,130 @@ input {
     flex-direction: column;
     gap: 29px;
     align-items: center;
+}
+
+.item-lista {
+    position: relative;
+}
+
+.quizz-lista-acoes {
+    position: absolute;
+    top: 10px;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background: #ec362d;
+    z-index: 5;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    padding: 10px;
+}
+
+.quizz-lista-acoes ion-icon {
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+    transition: transform ease 0.3s;
+}
+
+.quizz-lista-acoes ion-icon:hover {
+    transform: scale(1.15);
+}
+
+.quizz-lista-acoes ion-icon:active {
+    transform: scale(0.95);
+}
+
+.modal-container {
+    position: fixed;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.65);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: opacity ease 0.2s;
+}
+
+.hidden {
+    pointer-events: none;
+    opacity: 0;
+}
+
+.modal-container.hidden .modal {
+    transform: translateY(20%);
+    opacity: 0;
+}
+
+.modal {
+    width: min(80%, 320px);
+    background: #fff;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    color: #313131;
+    overflow: hidden;
+    transition: transform ease 0.4s, opacity ease 0.4s;
+}
+
+.modal header h2 {
+    font-size: 18px;
+    font-weight: 700;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 16px;
+}
+
+.modal main {
+    margin: 0;
+    padding: 16px;
+    font-size: 16px;
+    line-height: 160%;
+}
+
+.modal main:empty {
+    display: none;
+}
+
+.modal:has(main:empty) footer {
+    border: none;
+}
+
+.modal footer {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 12px;
+}
+
+.modal footer button {
+    border-radius: 100px;
+    font-size: 18px;
+    padding: 10px;
+    flex: 1;
+    transition: background ease 0.3s;
+}
+
+.modal footer .confirmar {
+    background: #ec362d;
+    color: #fff;
+}
+
+.modal footer .cancelar {
+    color: #6e6e6e;
+}
+
+.modal footer .cancelar:hover {
+    background: rgba(110, 110, 110, 0.15);
+}
+.modal footer .cancelar:active {
+    background: rgba(110, 110, 110, 0.3);
 }
 
 @media (min-width: 650px) {

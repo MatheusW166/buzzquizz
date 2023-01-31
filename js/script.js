@@ -1,4 +1,4 @@
-import { getQuizzes } from "./api.js";
+import { getQuizzes, apagarQuizz } from "./api.js";
 import { criarTelaQuizz, tagImgCustomizada } from "./telaQuizz.js";
 import {
   criarTelaPerguntas,
@@ -7,6 +7,8 @@ import {
   getNiveisValidos,
   salvarQuizz,
   criarTelaSucesso,
+  addLoading,
+  removeLoading,
 } from "./criarQuizz.js";
 
 let Quizzes = [];
@@ -20,6 +22,69 @@ function atualizarListasQuizzes() {
 }
 
 atualizarListasQuizzes();
+
+window.fecharModal = function () {
+  const modal = document.querySelector(".modal-container");
+  modal.classList.add("hidden");
+};
+
+function abrirModal() {
+  const modal = document.querySelector(".modal-container");
+  modal.classList.remove("hidden");
+}
+
+function mostrarModalCustomizado({
+  title,
+  mensagem,
+  btnCancelarText = "Cancelar",
+  btnConfirmarText = "Confirmar",
+  onConfirmar,
+  onCancelar,
+}) {
+  let naoInformado;
+  if (!title) naoInformado = "title";
+  else if (!mensagem) naoInformado = "mensagem";
+  else if (!onConfirmar) naoInformado = "onConfirmar";
+  if (naoInformado) throw Error(`'${naoInformado}' deve ser informado`);
+  const modal = document.querySelector(".modal");
+  const tituloContainer = modal.querySelector("h2");
+  const mensagemContainer = modal.querySelector("main");
+  const btnConfirmar = modal.querySelector(".confirmar");
+  const btnCancelar = modal.querySelector(".cancelar");
+  tituloContainer.innerHTML = title;
+  mensagemContainer.innerHTML = mensagem;
+  btnConfirmar.innerHTML = btnConfirmarText;
+  btnConfirmar.onclick = onConfirmar;
+  btnCancelar.innerHTML = btnCancelarText;
+  if (onCancelar) btnCancelar.onclick = onCancelar;
+  abrirModal();
+}
+
+window.deletarQuizz = function (event, quizzId) {
+  event.stopPropagation();
+  const quizz = JSON.parse(localStorage.getItem(`${quizzId}`));
+
+  mostrarModalCustomizado({
+    title: "Deseja deletar este Quizz?",
+    mensagem: `Você está prestes a deletar o Quizz "${quizz.title}"`,
+    onConfirmar: () => {
+      window.fecharModal();
+      addLoading();
+      apagarQuizz(quizz.id, quizz.key)
+        .then((_) => {
+          localStorage.removeItem(`${quizz.id}`);
+          atualizarListasQuizzes();
+          alert("Seu quizz foi apagado");
+        })
+        .catch((_) => {
+          alert("Não foi possível deletar o quizz");
+        })
+        .finally(() => removeLoading());
+    },
+  });
+};
+
+window.atualizarQuizz = function (quizzId) {};
 
 const abrirTelaQuizz = (elementoClicado, currentQuizz = null) => {
   const quizz =
@@ -40,6 +105,27 @@ function criarLayoutQuizzListado(quizz, tag = "li") {
     })}
     <label class="tituloQuizz">${quizz.title}</label>
   </${tag}>
+  `;
+}
+
+function criarLayoutQuizzLocal(quizz, tag = "li") {
+  return `
+  <div class="item-lista">
+    <div class="quizz-lista-acoes">
+      <ion-icon name="create-outline"></ion-icon>
+      <ion-icon onclick="deletarQuizz(event, ${
+        quizz.id
+      })" name="trash-outline"></ion-icon>
+    </div>
+    <${tag} id="${quizz.id}" class="QuizzListado clicavel">
+      ${tagImgCustomizada({
+        classes: "imgQuizz",
+        src: quizz.image,
+        alt: quizz.title,
+      })}
+      <label class="tituloQuizz">${quizz.title}</label>
+    </${tag}>
+  </div>
   `;
 }
 
@@ -85,7 +171,7 @@ function exibirQuizzesLocais(QuizzesLocais) {
   if (QuizzesLocais.length === 0) return;
   let template = "";
   QuizzesLocais.forEach(
-    (element) => (template += criarLayoutQuizzListado(element))
+    (element) => (template += criarLayoutQuizzLocal(element))
   );
   const listaQuizzes = document.querySelector(".listaQuizzesLocais");
   listaQuizzes.innerHTML = template;

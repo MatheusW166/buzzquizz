@@ -95,20 +95,12 @@ window.handleErroOnChange = function (input) {
 };
 
 // Úteis
-function criarLayoutLoading() {
-  return `
-  <div class="loading full-screen">
-    <span class="loader"></span>
-  </div>
-  `;
+function addLoading() {
+  document.querySelector(".loading.full-screen").classList.remove("hidden");
 }
 
-function addLoading(container) {
-  container.innerHTML += criarLayoutLoading();
-}
-
-function removeLoading(container) {
-  container.querySelector(".loading").remove();
+function removeLoading() {
+  document.querySelector(".loading.full-screen").classList.add("hidden");
 }
 
 function fecharTodosOsContainers(parent) {
@@ -495,16 +487,15 @@ function buildQuizz() {
 }
 
 async function salvarQuizz() {
-  const ultimaTelaCriacao = document.querySelector(".criar-niveis");
   try {
-    addLoading(ultimaTelaCriacao);
+    addLoading();
     const quizz = buildQuizz();
     const res = await criarQuizz(quizz);
-    removeLoading(ultimaTelaCriacao);
     return res;
   } catch (err) {
-    removeLoading(ultimaTelaCriacao);
     throw err;
+  } finally {
+    removeLoading();
   }
 }
 
@@ -548,4 +539,4 @@ function criarTelaSucesso(quizz) {
   addAcoesOpcoesSucesso(telaSucesso, quizz);
 }
 
-export { criarTelaSucesso };
+export { criarTelaSucesso, addLoading, removeLoading };

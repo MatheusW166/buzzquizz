@@ -20,6 +20,21 @@
     <title>BuzzQuizz</title>
   </head>
   <body>
+    <div class="loading full-screen hidden">
+      <span class="loader"></span>
+    </div>
+
+    <div class="modal-container hidden">
+      <article class="modal">
+        <header><h2>Deseja deletar o quizz?</h2></header>
+        <main>Você está prestes a excluir o Quizz com id "231945"</main>
+        <footer>
+          <button class="cancelar" onclick="fecharModal()">Cancelar</button>
+          <button class="confirmar">Confirmar</button>
+        </footer>
+      </article>
+    </div>
+
     <div class="container">
       <div class="topo">
         <p class="buzzquizz">BuzzQuizz</p>
