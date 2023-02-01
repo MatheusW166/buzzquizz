@@ -535,7 +535,7 @@ function criarTelaSucesso(quizz) {
   const telaSucesso = document.querySelector(".sucesso-criacao");
   const quizzListado = criarLayoutQuizzListado(quizz, "div");
   const opcoesSucesso = criarLayoutOpcoesSucesso();
-  telaSucesso.innerHTML += quizzListado + opcoesSucesso;
+  telaSucesso.innerHTML = quizzListado + opcoesSucesso;
   addAcoesOpcoesSucesso(telaSucesso, quizz);
 }
 
