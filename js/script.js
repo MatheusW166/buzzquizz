@@ -1,4 +1,4 @@
-import { getQuizzes, apagarQuizz } from "./api.js";
+import { getQuizzes, apagarQuizz, atualizarQuizz } from "./api.js";
 import { criarTelaQuizz, tagImgCustomizada } from "./telaQuizz.js";
 import {
   criarTelaPerguntas,
@@ -9,7 +9,26 @@ import {
   criarTelaSucesso,
   addLoading,
   removeLoading,
+  buildNovoQuizz,
 } from "./criarQuizz.js";
+
+const QuizzEditado = {};
+
+function isEditando() {
+  return Object.keys(QuizzEditado).length > 0;
+}
+
+function setQuizzEditado(quizz) {
+  Object.keys(quizz).forEach((key) => {
+    QuizzEditado[key] = quizz[key];
+  });
+}
+
+function clearQuizzEditado() {
+  Object.keys(QuizzEditado).forEach((key) => {
+    delete QuizzEditado[key];
+  });
+}
 
 let Quizzes = [];
 
@@ -72,12 +91,12 @@ window.deletarQuizz = function (event, quizzId) {
       window.fecharModal();
       addLoading();
       apagarQuizz(quizz.id, quizz.key)
-        .then((_) => {
+        .then(() => {
           localStorage.removeItem(`${quizz.id}`);
           atualizarListasQuizzes();
           alert("Seu quizz foi apagado");
         })
-        .catch((_) => {
+        .catch(() => {
           alert("Não foi possível apagar o quizz");
         })
         .finally(() => removeLoading());
@@ -85,7 +104,12 @@ window.deletarQuizz = function (event, quizzId) {
   });
 };
 
-window.atualizarQuizz = function (quizzId) {};
+window.editarQuizz = function (event, quizzId) {
+  event.stopPropagation();
+  const quizzParaEditar = JSON.parse(localStorage.getItem(`${quizzId}`));
+  setQuizzEditado(quizzParaEditar);
+  window.criarTeste();
+};
 
 const abrirTelaQuizz = (elementoClicado, currentQuizz = null) => {
   const quizz =
@@ -113,7 +137,9 @@ function criarLayoutQuizzLocal(quizz, tag = "li") {
   return `
   <div class="item-lista">
     <div class="quizz-lista-acoes">
-      <ion-icon name="create-outline"></ion-icon>
+      <ion-icon onclick="editarQuizz(event, ${
+        quizz.id
+      })" name="create-outline"></ion-icon>
       <ion-icon onclick="deletarQuizz(event, ${
         quizz.id
       })" name="trash-outline"></ion-icon>
@@ -152,6 +178,7 @@ function exibirQuizzes() {
 function carregareExibirQuizzesLocais() {
   const quizzesLocais = pegarQuizesLocais();
   if (quizzesLocais.length > 0) mostrarQuizzesLocais();
+  else esvaziarQuizzesLocais();
 }
 
 function armazenarQuizzLocal(quizz) {
@@ -197,6 +224,16 @@ function mostrarQuizzesLocais() {
   listaQuizzesUsuario.classList.remove("sumir");
 }
 
+function esvaziarQuizzesLocais() {
+  const botaoCriarQuizzes = document.querySelector(".criarQuiz");
+  botaoCriarQuizzes.classList.remove("remocaoDisplay");
+  const quizzesUsuario = document.querySelector(".QuizesUsuario");
+  const listaQuizzesUsuario = quizzesUsuario.nextElementSibling;
+  quizzesUsuario.classList.add("sumir");
+  listaQuizzesUsuario.classList.add("sumir");
+  listaQuizzesUsuario.innerHTML = "";
+}
+
 window.validacaoTituloQuizz = function (inputTitulo) {
   const titulo = inputTitulo.trim();
   return titulo.length >= 20 && titulo.length <= 65;
@@ -211,7 +248,20 @@ window.validarURL = function (inputURL) {
   }
 };
 
-window.criarTeste = function () {
+function limparTodosInputs() {
+  const inputs = document.querySelectorAll("input");
+  inputs.forEach((element) => (element.value = ""));
+}
+
+function preencherInformacoesBasicas(quizzParaEditar) {
+  const { title, image, questions, levels } = quizzParaEditar;
+  document.querySelector(".titulo").value = title;
+  document.querySelector(".url").value = image;
+  document.querySelector(".perguntas").value = questions.length;
+  document.querySelector(".niveis").value = levels.length;
+}
+
+function abrirTelaDeInformacoesBasicas() {
   const criar = document.querySelector(".criarQuiz");
   criar.classList.add("remocaoDisplay");
   let quizesLocais = document.querySelector(".todosOsQuizzes");
@@ -224,7 +274,60 @@ window.criarTeste = function () {
   quizesLocais.classList.add("sumir");
   const aparecerPagina1 = document.querySelector(".pagina1");
   aparecerPagina1.classList.remove("remocaoDisplay");
+}
+
+window.criarTeste = function () {
+  limparTodosInputs();
+  abrirTelaDeInformacoesBasicas();
+
+  if (isEditando()) {
+    preencherInformacoesBasicas(QuizzEditado);
+  }
 };
+
+function preencherContainerPergunta(container, pergunta) {
+  container.querySelector(".texto-pergunta").value = pergunta.title;
+  container.querySelector(".cor").value = pergunta.color;
+
+  // Correta
+  const respostaCerta = pergunta.answers.filter(
+    (resposta) => resposta.isCorrectAnswer
+  )[0];
+  const respCertaInput = container.querySelector(".resposta-correta");
+  const imagemCertaInput =
+    respCertaInput.parentElement.nextElementSibling.firstElementChild;
+  respCertaInput.value = respostaCerta.text;
+  imagemCertaInput.value = respostaCerta.image;
+
+  // Incorretas
+  const respostasErradas = pergunta.answers.filter(
+    (resposta) => !resposta.isCorrectAnswer
+  );
+  const respErradasInputs = container.querySelectorAll(".resposta-incorreta");
+  respostasErradas.forEach((resposta, idx) => {
+    const erradaInput = respErradasInputs[idx];
+    const erradaImageInput =
+      erradaInput.parentElement.nextElementSibling.firstElementChild;
+    erradaInput.value = resposta.text;
+    erradaImageInput.value = resposta.image;
+  });
+}
+
+function preencherTelaPerguntas(quizzParaEditar) {
+  const containerPerguntas = document.querySelectorAll(".container-pergunta");
+
+  const perguntas = quizzParaEditar.questions;
+  containerPerguntas.forEach((container, idx) => {
+    preencherContainerPergunta(container, perguntas[idx]);
+  });
+}
+
+function abrirTelaDePerguntas() {
+  const criar = document.querySelector(".pagina1");
+  criar.classList.add("remocaoDisplay");
+  const aparecerPagina2 = document.querySelector(".pagina2");
+  aparecerPagina2.classList.remove("remocaoDisplay");
+}
 
 window.criarComeco = function () {
   const inputTitulo = document.querySelector(".titulo").value;
@@ -251,11 +354,40 @@ window.criarComeco = function () {
     levels: inputNiveis,
   });
 
-  const criar = document.querySelector(".pagina1");
-  criar.classList.add("remocaoDisplay");
-  const aparecerPagina2 = document.querySelector(".pagina2");
-  aparecerPagina2.classList.remove("remocaoDisplay");
+  if (isEditando()) {
+    preencherTelaPerguntas(QuizzEditado);
+  }
+
+  abrirTelaDePerguntas();
 };
+
+function abrirTelaNiveis() {
+  const criar = document.querySelector(".pagina2");
+  criar.classList.add("remocaoDisplay");
+  const aparecerPagina3 = document.querySelector(".pagina3");
+  aparecerPagina3.classList.remove("remocaoDisplay");
+}
+
+function preencherNivel(containerNivel, level) {
+  const tituloInput = containerNivel.querySelector(".tituloNivel");
+  const percentualInput = containerNivel.querySelector(".percentual");
+  const imageInput = containerNivel.querySelector(".URLnivel");
+  const descricaoInput = containerNivel.querySelector(".descricao");
+
+  tituloInput.value = level.title;
+  percentualInput.value = level.minValue;
+  imageInput.value = level.image;
+  descricaoInput.value = level.text;
+}
+
+function preencherNiveis(quizz) {
+  const containersNiveis = document.querySelectorAll(".container-nivel");
+
+  const levels = quizz.levels;
+  containersNiveis.forEach((container, idx) => {
+    preencherNivel(container, levels[idx]);
+  });
+}
 
 window.prosseguir = function () {
   if (!getPerguntasValidas()) {
@@ -265,10 +397,11 @@ window.prosseguir = function () {
 
   criarTelaNiveis();
 
-  const criar = document.querySelector(".pagina2");
-  criar.classList.add("remocaoDisplay");
-  const aparecerPagina3 = document.querySelector(".pagina3");
-  aparecerPagina3.classList.remove("remocaoDisplay");
+  if (isEditando()) {
+    preencherNiveis(QuizzEditado);
+  }
+
+  abrirTelaNiveis();
 };
 
 function abrirTelaSucesso() {
@@ -285,6 +418,19 @@ window.finalizar = function () {
 
   if ("error" in res) {
     alert(res.error);
+    return;
+  }
+
+  if (isEditando()) {
+    const { id, key } = QuizzEditado;
+    atualizarQuizz(id, buildNovoQuizz(), key)
+      .then((quizz) => {
+        armazenarQuizzLocal(quizz);
+        criarTelaSucesso(quizz);
+        abrirTelaSucesso();
+      })
+      .catch((err) => console.log(err));
+    clearQuizzEditado();
     return;
   }
 

@@ -248,7 +248,6 @@ function getPerguntasValidas() {
   for (let i = 0; i < conatinersPerguntas.length; i++) {
     const question = getCabecalhoValidoPergunta(conatinersPerguntas[i]);
     const answers = getRespostasValidasPergunta(conatinersPerguntas[i]);
-    console.log(answers);
     if (!question || !answers) {
       return false;
     }
@@ -337,6 +336,7 @@ function criarTelaPerguntas(infoBasicas) {
   }
   inputsPerguntas.innerHTML = layoutPerguntas;
   addAcoesAbrirContainerNosToggles(telaCriarPerguntas);
+  return telaCriarPerguntas;
 }
 
 export { criarTelaPerguntas, getPerguntasValidas };
@@ -474,7 +474,7 @@ function criarTelaNiveis() {
 export { criarTelaNiveis, getNiveisValidos };
 
 // Build quizz
-function buildQuizz() {
+function buildNovoQuizz() {
   const infoBasic = getInfoBasicasQuizz();
   const questions = getQuestions();
   const levels = getLevels();
@@ -489,7 +489,7 @@ function buildQuizz() {
 async function salvarQuizz() {
   try {
     addLoading();
-    const quizz = buildQuizz();
+    const quizz = buildNovoQuizz();
     const res = await criarQuizz(quizz);
     return res;
   } catch (err) {
@@ -539,4 +539,4 @@ function criarTelaSucesso(quizz) {
   addAcoesOpcoesSucesso(telaSucesso, quizz);
 }
 
-export { criarTelaSucesso, addLoading, removeLoading };
+export { criarTelaSucesso, addLoading, removeLoading, buildNovoQuizz };

@@ -600,29 +600,30 @@ input {
 }
 
 .modal {
-    width: min(90%, 350px);
+    width: min(80%, 350px);
     background: #fff;
     border-radius: 10px;
     display: flex;
+    gap: 20px;
     flex-direction: column;
-    gap: 10px;
     color: #313131;
     overflow: hidden;
-    transition: transform ease 0.4s, opacity ease 0.4s;
+    transition: transform ease 0.3s, opacity ease 0.4s;
 }
 
 .modal header h2 {
     font-size: 18px;
     font-weight: 700;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    padding: 16px;
+    padding: 20px 16px;
+    background: #fafafa;
 }
 
 .modal main {
     margin: 0;
     padding: 16px;
     font-size: 16px;
-    line-height: 160%;
+    line-height: 150%;
 }
 
 .modal main:empty {
@@ -639,6 +640,7 @@ input {
     justify-content: center;
     border-top: 1px solid rgba(0, 0, 0, 0.1);
     padding: 12px;
+    background: #fafafa;
 }
 
 .modal footer button {
