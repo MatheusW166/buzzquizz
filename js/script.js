@@ -318,6 +318,7 @@ function preencherTelaPerguntas(quizzParaEditar) {
 
   const perguntas = quizzParaEditar.questions;
   containerPerguntas.forEach((container, idx) => {
+    if (idx >= perguntas.length) return;
     preencherContainerPergunta(container, perguntas[idx]);
   });
 }
@@ -385,6 +386,7 @@ function preencherNiveis(quizz) {
 
   const levels = quizz.levels;
   containersNiveis.forEach((container, idx) => {
+    if (idx >= levels.length) return;
     preencherNivel(container, levels[idx]);
   });
 }
