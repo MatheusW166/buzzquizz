@@ -411,6 +411,20 @@ function abrirTelaSucesso() {
   document.querySelector(".sucesso-criacao").classList.remove("remocaoDisplay");
 }
 
+async function salvarQuizzEditado() {
+  addLoading();
+  try {
+    const { id, key } = QuizzEditado;
+    const novoQuizz = buildNovoQuizz();
+    const res = await atualizarQuizz(id, novoQuizz, key);
+    return res;
+  } catch (err) {
+    throw err;
+  } finally {
+    removeLoading();
+  }
+}
+
 window.finalizar = function () {
   const res = getNiveisValidos();
   if (!res) {
@@ -424,15 +438,14 @@ window.finalizar = function () {
   }
 
   if (isEditando()) {
-    const { id, key } = QuizzEditado;
-    atualizarQuizz(id, buildNovoQuizz(), key)
+    salvarQuizzEditado()
       .then((quizz) => {
         armazenarQuizzLocal(quizz);
         criarTelaSucesso(quizz);
         abrirTelaSucesso();
+        clearQuizzEditado();
       })
       .catch((err) => console.log(err));
-    clearQuizzEditado();
     return;
   }
 
