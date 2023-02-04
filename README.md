@@ -1,7 +1,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/MatheusW166/buzzquizz/blob/main/LICENCE)
 
 <div align="center">
-<p>| <a href="#about">About</a> | <a href="#authors">Authors</a> | <a href="#features">Features</a> | <a href="#screenshots">Screenshots</a> | <a href="#stack">Stack</a> | <a href="#api">API</a> | <a href="#schemas">Schemas</a> |</p>
+<p>| <a href="#about">About</a> | <a href="#authors">Authors</a> | <a href="#features">Features</a> | <a href="#screenshots">Screenshots</a> |<br/>| <a href="#stack">Stack</a> | <a href="#api">API</a> | <a href="#schemas">Schemas</a> |</p>
 </div>
 
 # BuzzQuizz
