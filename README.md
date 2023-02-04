@@ -1,6 +1,8 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/MatheusW166/buzzquizz/blob/main/LICENCE)
 
-| [About](#about) | [Authors](#authors) | [Features](#features) | [Screenshots](#screenshots) | [Stack](#stack) | [API](#api) | [Schemas](#schemas) |
+<div align="center">
+<p>| <a href="#about">About</a> | <a href="#authors">Authors</a> | <a href="#features">Features</a> | <a href="#screenshots">Screenshots</a> | <a href="#stack">Stack</a> | <a href="#api">API</a> | <a href="#schemas">Schemas</a> |</p>
+</div>
 
 # BuzzQuizz
 This is a quiz app made as part of evaluation of Driven Education full-stack web course.
@@ -91,6 +93,7 @@ The project uses [Driven Education's](https://www.driven.com.br/) public API.
 | :---------- | :--------- | :------------------------------------------ |
 | `id`      | `string` | **Required**. The ID of the quizz you want to delete |
 | `Secret-Key` | `string` | **Required**. The key returned in creation |
+
 **Returns** the deleted [Quizz](#quizz)
 
 ## Schemas
