@@ -1,30 +1,27 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/MatheusW166/buzzquizz/blob/main/LICENCE)
 
 <div align="center">
-<p>| <a href="#about">About</a> | <a href="#authors">Authors</a> | <a href="#features">Features</a> | <a href="#screenshots">Screenshots</a> |<br/>| <a href="#stack">Stack</a> | <a href="#api">API</a> | <a href="#schemas">Schemas</a> |</p>
+<p>| <a href="#sobre">Sobre</a> | <a href="#autores">Autores</a> | <a href="#funcionalidades">Funcionalidades</a> | <a href="#screenshots">Screenshots</a> |<br/>| <a href="#stack">Stack</a> | <a href="#api">API</a> | <a href="#schemas">Schemas</a> |</p>
 </div>
 
 # BuzzQuizz
-This is a quiz app made as part of evaluation of Driven Education full-stack web course.
+Aplicativo de Quiz feito como parte da avaliação da formação web full-stack da Driven Education.
 
-Link to access the application:
-- [BuzzQuizz](https://matheusw166.github.io/buzzquizz/)
+Acesse o app [aqui](https://matheusw166.github.io/buzzquizz/).
 
-## About
-The application allows the user to play question and answer quizzes. User-created quizzes are saved locally and can be edited and deleted. Quizzes have at least three questions with one right answer and up to three wrong answers, and at least two levels, which will be displayed to the user at the end of the game indicating their placement according to the number of correct answers marked.
+## Sobre
+O aplicativo permite que o usuário jogue questionários de perguntas e respostas. Os questionários criados pelo usuário são salvos localmente e podem ser editados e excluídos. Os quizzes possuem no mínimo três questões com uma resposta certa e até três respostas erradas, e no mínimo dois níveis, que serão exibidos ao usuário ao final do jogo indicando sua colocação de acordo com o número de acertos.
 
-## Authors
+## Autores
 - [@MatheusW166](https://github.com/MatheusW166)
 - [@RobertaCapalbo](https://github.com/RobertaCapalbo)
 - [@Tundror](https://github.com/Tundror)
 
-## Features
+## Funcionalidades
 
-- Play quizzes
-- Create, edit and delete quizzes
-- Desktop mode
-- Mobile mode
-- Responsive
+- Jogar quizzes
+- Criar, editar e deletar quizzes
+- Responsividade
 
 ## Screenshots
 ![Home no Quizz](https://github.com/MatheusW166/buzzquizz/blob/main/refs/home.png)
@@ -37,64 +34,64 @@ The application allows the user to play question and answer quizzes. User-create
 ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white) ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white) ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E) ![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white) ![Trello](https://img.shields.io/badge/Trello-%23026AA7.svg?style=for-the-badge&logo=Trello&logoColor=white) ![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white) 
 
 ## API
-The project uses [Driven Education's](https://www.driven.com.br/) public API.
+O projeto usa uma API pública da [Driven Education's](https://www.driven.com.br/).
 
-### Get the fifty most recent quizzes
+### Obter os cinquenta quizzes mais recentes
 ```curl
   GET /api/quizzes
 ```
-**Returns** an array of [Quizz](#quizz)
+**Returns** array de [Quizz](#quizz)
 <hr/>
 
-### Get a quizz by id
+### Obter quizz por id
 ```curl
   GET /api/quizzes/${id}
 ```
-| Parameter   | Type       | Description                                   |
+| Parâmetro   | Tipo       | Descrição                                   |
 | :---------- | :--------- | :------------------------------------------ |
-| `id`      | `string` | **Required**. The ID of the quizz you want |
+| `id`      | `string` | **Required**. ID do quizz desejado |
 
-**Returns** a [Quizz](#quizz)
+**Returns** um [Quizz](#quizz)
 <hr/>
 
-### Create a quizz
+### Criar um quizz
 ```curl
   POST /api/quizzes
 ```
-| Parameter   | Type       | Description                                   |
+| Parâmetro   | Tipo       | Descrição                                   |
 | :---------- | :--------- | :------------------------------------------ |
-| `data`      | [Quizz](#quizz) | **Required**. The quizz object you want to create |
+| `data`      | [Quizz](#quizz) | **Required**. Quizz que deseja criar |
 
-**Returns** a [Quizz](#quizz) with the following extra parameters:
-- **id**: Quizz id
-- **key**: Secret key of the quizz
+**Returns** um [Quizz](#quizz) com os seguintes parâmetros extras:
+- **id**: id do quizz
+- **key**: Chave secreta do quizz
 <hr/>
 
-### Edit quizz
+### Editar quizz
 ```curl
   PUT /api/quizzes/${id}
 ```
 
-| Parameter   | Type       | Description                                   |
-| :---------- | :--------- | :------------------------------------------ |
-| `id`      | `string` | **Required**. The ID of the quizz you want to edit |
-| `data`      | [Quizz](#schema) | **Required**. The quizz object that will replace the old one |
-| `Secret-Key` | `string` | **Required**. The key returned in creation |
+| Parâmetro   | Tipo       |
+| :---------- | :--------- | 
+| `id`      | `string` |
+| `data`      | [Quizz](#schema) |
+| `Secret-Key` | `string` |
 
-**Returns** the new [Quizz](#quizz)
+**Returns** o novo [Quizz](#quizz)
 <hr/>
 
-### Delete quizz
+### Deletar quizz
 ```curl
   DELETE /api/quizzes/${id}
 ```
 
-| Parameter   | Type       | Description                                   |
-| :---------- | :--------- | :------------------------------------------ |
-| `id`      | `string` | **Required**. The ID of the quizz you want to delete |
-| `Secret-Key` | `string` | **Required**. The key returned in creation |
+| Parâmetro   | Tipo       | 
+| :---------- | :--------- | 
+| `id`      | `string` | 
+| `Secret-Key` | `string` |
 
-**Returns** the deleted [Quizz](#quizz)
+**Returns** o [Quizz](#quizz) deletado
 
 ## Schemas
 ### Quizz
@@ -168,12 +165,12 @@ The project uses [Driven Education's](https://www.driven.com.br/) public API.
   ]
 }
 ```
-| Parameter   | Type       | Description                                   |
+| Parâmetro   | Tipo       | Descrição                                   |
 | :---------- | :--------- | :------------------------------------------ |
-| `title`      | `string` | The quizz title |
-| `image` | `string` | An URL to the quizz image |
-| `questions`| `Array`<[Question](#question)> | Array with all questions of the quizz|
-| `levels` | `Array`<[Level](#level)> | Array with all levels of the quizz|
+| `title`      | `string` | Título do quizz |
+| `image` | `string` | URL da imagem |
+| `questions`| `Array`<[Question](#question)> | Array com todas as perguntas |
+| `levels` | `Array`<[Level](#level)> | Array com todos os níveis|
 
 ### Question
 ```json
@@ -194,11 +191,11 @@ The project uses [Driven Education's](https://www.driven.com.br/) public API.
   ]
 }
 ```
-| Parameter   | Type       | Description                                   |
+| Parâmetro   | Tipo       | Descrição                                   |
 | :---------- | :--------- | :------------------------------------------ |
-| `title`      | `string` | Title of the question |
-| `color` | `string` | The question header color in hexadecimal (#000000) |
-| `answers`| `Array`<[Answer](#answer)> | Array with all possible answers |
+| `title`      | `string` | Título da pergunta |
+| `color` | `string` | Cor do header da pergunta em hexadecimal (#000000) |
+| `answers`| `Array`<[Answer](#answer)> | Array com todas as respostas possíveis |
 
 ### Answer
 ```json
@@ -208,11 +205,11 @@ The project uses [Driven Education's](https://www.driven.com.br/) public API.
   "isCorrectAnswer": true
 }
 ```
-| Parameter   | Type       | Description                                   |
+| Parâmetro   | Tipo       | Descrição                                   |
 | :---------- | :--------- | :------------------------------------------ |
-| `text`      | `string` | Text of the answer |
-| `image` | `string` | An image URL |
-| `isCorrectAnswer`| `boolean` | whether the answer is correct or not |
+| `text`      | `string` | Texto da resposta |
+| `image` | `string` | URL da imagem da resposta |
+| `isCorrectAnswer`| `boolean` | É a resposta correta? |
 
 ### Level
 ```json
@@ -223,9 +220,9 @@ The project uses [Driven Education's](https://www.driven.com.br/) public API.
   "minValue": 0
 }
 ```
-| Parameter   | Type       | Description                                   |
+| Parâmetro   | Tipo       | Descrição                                   |
 | :---------- | :--------- | :------------------------------------------ |
-| `title`      | `string` | Title of the level |
-| `image` | `string` | Level image URL |
-| `text`| `string` | The level description |
-| `minValue` | `integer` | Minimum hit percentage for the level to be displayed |
+| `title`      | `string` | Título do nível |
+| `image` | `string` | URL da imagem do nível |
+| `text`| `string` | Descrição do nível |
+| `minValue` | `integer` | Porcentagem mínima de acerto para o nível ser exibido |
