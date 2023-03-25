@@ -1,16 +1,13 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/MatheusW166/buzzquizz/blob/main/LICENCE)
 
 <div align="center">
-<p>| <a href="#sobre">Sobre</a> | <a href="#autores">Autores</a> | <a href="#funcionalidades">Funcionalidades</a> | <a href="#screenshots">Screenshots</a> |<br/>| <a href="#stack">Stack</a> | <a href="#api">API</a> | <a href="#schemas">Schemas</a> |</p>
+<p>| <a href="#autores">Autores</a> | <a href="#funcionalidades">Funcionalidades</a> | <a href="#screenshots">Screenshots</a> |<br/>| <a href="#stack">Stack</a> | <a href="#api">API</a> | <a href="#schemas">Schemas</a> |</p>
 </div>
 
 # BuzzQuizz
-Aplicativo de Quiz feito como parte da avaliação da formação web full-stack da Driven Education.
+O aplicativo permite que o usuário jogue questionários de perguntas e respostas. Os questionários criados pelo usuário são salvos localmente e podem ser editados e excluídos. Os quizzes possuem no mínimo três questões com uma resposta certa e até três respostas erradas, e no mínimo dois níveis, que serão exibidos ao usuário ao final do jogo indicando sua colocação de acordo com o número de acertos.
 
 Acesse o app [aqui](https://matheusw166.github.io/buzzquizz/).
-
-## Sobre
-O aplicativo permite que o usuário jogue questionários de perguntas e respostas. Os questionários criados pelo usuário são salvos localmente e podem ser editados e excluídos. Os quizzes possuem no mínimo três questões com uma resposta certa e até três respostas erradas, e no mínimo dois níveis, que serão exibidos ao usuário ao final do jogo indicando sua colocação de acordo com o número de acertos.
 
 ## Autores
 - [@MatheusW166](https://github.com/MatheusW166)
